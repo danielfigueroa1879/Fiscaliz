@@ -74,7 +74,96 @@
             margin: 0 5px;
             vertical-align: middle;
         }
+        .summary {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .summary h3 {
+            margin-top: 0;
+        }
+        .result {
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .seguro {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .riesgo {
+            background-color: #fcf8e3;
+            color: #8a6d3b;
+            border: 1px solid #faebcc;
+        }
+        .inseguro {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+        .count {
+            margin-bottom: 10px;
+        }
     </style>
+    <script>
+        function contarCumplimiento() {
+            var totalItems = document.querySelectorAll('td.check-column div.check-box').length / 2;
+            var itemsCumplen = document.querySelectorAll('input[type="radio"][value="cumple"]:checked').length;
+            var itemsNoCumplen = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked').length;
+            
+            document.getElementById('total-items').textContent = totalItems;
+            document.getElementById('items-cumplen').textContent = itemsCumplen;
+            document.getElementById('items-no-cumplen').textContent = itemsNoCumplen;
+            document.getElementById('porcentaje-cumplimiento').textContent = Math.round((itemsCumplen / (itemsCumplen + itemsNoCumplen)) * 100) || 0;
+            
+            var resultElement = document.getElementById('resultado-evaluacion');
+            var porcentaje = (itemsCumplen / (itemsCumplen + itemsNoCumplen)) * 100 || 0;
+            
+            resultElement.classList.remove('seguro', 'riesgo', 'inseguro');
+            
+            if(porcentaje >= 80) {
+                resultElement.textContent = "ESTABLECIMIENTO SEGURO";
+                resultElement.classList.add('seguro');
+                document.getElementById('recomendacion').textContent = "El establecimiento cumple con la mayoría de los requisitos de seguridad. Se recomienda mantener las medidas actuales y mejorar los aspectos no conformes.";
+            } else if(porcentaje >= 60) {
+                resultElement.textContent = "ESTABLECIMIENTO EN RIESGO";
+                resultElement.classList.add('riesgo');
+                document.getElementById('recomendacion').textContent = "El establecimiento presenta vulnerabilidades significativas que deben ser subsanadas a corto plazo. Se requiere un plan de acción inmediato.";
+            } else {
+                resultElement.textContent = "ESTABLECIMIENTO INSEGURO";
+                resultElement.classList.add('inseguro');
+                document.getElementById('recomendacion').textContent = "El establecimiento presenta graves deficiencias de seguridad que lo hacen vulnerable. Se requiere intervención urgente y un plan integral de mejora.";
+            }
+        }
+        
+        function marcarRadio(checkbox, valor) {
+            checkbox.checked = true;
+            contarCumplimiento();
+        }
+        
+        window.onload = function() {
+            // Convertir divs a radio buttons
+            var checkboxes = document.querySelectorAll('td.check-column div.check-box');
+            for(var i = 0; i < checkboxes.length; i++) {
+                var div = checkboxes[i];
+                var td = div.parentNode;
+                var row = td.parentNode;
+                var isCumple = td.cellIndex === 1;
+                
+                var radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'item_' + Math.floor(i/2);
+                radio.value = isCumple ? 'cumple' : 'no-cumple';
+                radio.onclick = function() { contarCumplimiento(); };
+                
+                div.parentNode.replaceChild(radio, div);
+            }
+        };
+    </script>
 </head>
 <body>
     <h1>CUADRO DE FISCALIZACIÓN DE SEGURIDAD PRIVADA EN HOSPITALES</h1>
@@ -150,18 +239,6 @@
             <td class="observaciones"></td>
         </tr>
         <tr>
-            <td>Contempla objetivos específicos adaptados a la realidad hospitalaria</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
-            <td>Incluye protocolos específicos para áreas críticas</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
             <td>Contiene procedimientos para situaciones de emergencia particulares del entorno hospitalario</td>
             <td class="check-column"><div class="check-box"></div></td>
             <td class="check-column"><div class="check-box"></div></td>
@@ -210,46 +287,6 @@
     </table>
 
     <h2>2. PERSONAL DE SEGURIDAD</h2>
-
-    <h3>A. Jefe de Seguridad</h3>
-    <table>
-        <tr class="header-row">
-            <th width="50%">Ítem a Fiscalizar</th>
-            <th class="check-column">Cumple</th>
-            <th class="check-column">No Cumple</th>
-            <th class="observaciones">Observaciones</th>
-        </tr>
-        <tr>
-            <td>Designación formal del jefe de seguridad del hospital (Art. 23, Ley 21.659)</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
-            <td>Acreditación vigente ante la autoridad fiscalizadora</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
-            <td>Cumple requisitos de formación profesional (Art. 23, Ley 21.659)</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
-            <td>Cuenta con curso especializado en seguridad hospitalaria</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
-            <td>Evidencia coordinación con autoridades (Carabineros, PDI, SAMU)</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-    </table>
 
     <h3>B. Guardias de Seguridad</h3>
     <table>
@@ -360,12 +397,6 @@
             <td class="observaciones"></td>
         </tr>
         <tr>
-            <td>Gorra color negro, modelo militar o tipo jockey negro (Decreto 32)</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
             <td>Camisa color negro, manga corta o larga según temporada</td>
             <td class="check-column"><div class="check-box"></div></td>
             <td class="check-column"><div class="check-box"></div></td>
@@ -391,12 +422,6 @@
         </tr>
         <tr>
             <td>Leyenda "SEGURIDAD PRIVADA" visible en parte trasera del chaleco</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
-        <tr>
-            <td>Insignias identificativas de empresa y hospital correctamente ubicadas</td>
             <td class="check-column"><div class="check-box"></div></td>
             <td class="check-column"><div class="check-box"></div></td>
             <td class="observaciones"></td>
@@ -547,12 +572,6 @@
             <td class="check-column"><div class="check-box"></div></td>
             <td class="observaciones"></td>
         </tr>
-        <tr>
-            <td>Restricción efectiva de áreas críticas (farmacia, neonatología, psiquiatría)</td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="check-column"><div class="check-box"></div></td>
-            <td class="observaciones"></td>
-        </tr>
     </table>
 
     <h3>C. Alarmas y Sensores</h3>
@@ -601,7 +620,37 @@
         </tr>
     </table>
 
-    <h2>5. PROCEDIMIENTOS OPERATIVOS</h2>
-
-    <h3>A. Protocolos de Seguridad</h3>
-    <table>
+    <div class="summary">
+        <h3>EVALUACIÓN DE SEGURIDAD DEL ESTABLECIMIENTO</h3>
+        
+        <div class="count">
+            <p><strong>Total de ítems evaluados:</strong> <span id="total-items">0</span></p>
+            <p><strong>Ítems que cumplen:</strong> <span id="items-cumplen">0</span></p>
+            <p><strong>Ítems que no cumplen:</strong> <span id="items-no-cumplen">0</span></p>
+            <p><strong>Porcentaje de cumplimiento:</strong> <span id="porcentaje-cumplimiento">0</span>%</p>
+        </div>
+        
+        <div id="resultado-evaluacion" class="result">
+            PENDIENTE DE EVALUACIÓN
+        </div>
+        
+        <h3>ANÁLISIS DE VULNERABILIDADES</h3>
+        <p id="recomendacion">Complete la evaluación para generar un análisis de vulnerabilidades.</p>
+        
+        <h3>OBSERVACIONES GENERALES</h3>
+        <textarea rows="4" style="width: 100%; margin-top: 10px;" placeholder="Ingrese observaciones adicionales..."></textarea>
+        
+        <h3>PLAN DE ACCIÓN RECOMENDADO</h3>
+        <textarea rows="4" style="width: 100%; margin-top: 10px;" placeholder="Detalle las acciones correctivas a implementar..."></textarea>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <button onclick="contarCumplimiento()" style="padding: 10px 20px; background-color: #003366; color: white; border: none; border-radius: 5px; cursor: pointer;">Evaluar cumplimiento</button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Basado en la Ley 21.659 sobre Seguridad Privada y normativa complementaria</p>
+        <p>© 2024 - Cuadro de Fiscalización de Seguridad Privada en Hospitales</p>
+    </div>
+</body>
+</html>
