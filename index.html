@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Cuadro de Fiscalización de Seguridad Privada en Hospitales</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            font-size: 12px;
+            margin: 10px;
+            font-size: 14px;
         }
         h1 {
             text-align: center;
             color: #003366;
             margin-bottom: 20px;
+            font-size: 1.5rem;
         }
         h2 {
             color: #003366;
             margin-top: 30px;
             border-bottom: 1px solid #003366;
             padding-bottom: 5px;
+            font-size: 1.2rem;
         }
         h3 {
             color: #006699;
             margin-top: 20px;
+            font-size: 1.1rem;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            font-size: 0.9rem;
         }
         th, td {
             border: 1px solid #ddd;
@@ -60,10 +65,10 @@
             color: #666;
         }
         .observaciones {
-            min-width: 250px;
+            min-width: 150px;
         }
         .check-column {
-            width: 80px;
+            width: 60px;
             text-align: center;
         }
         .check-box {
@@ -107,6 +112,78 @@
         }
         .count {
             margin-bottom: 10px;
+        }
+        
+        /* Estilos responsivos para móviles */
+        @media screen and (max-width: 768px) {
+            body {
+                margin: 5px;
+                font-size: 12px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 4px;
+            }
+            
+            .observaciones {
+                min-width: 80px;
+            }
+            
+            .check-column {
+                width: 40px;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+            
+            h3 {
+                font-size: 1rem;
+            }
+            
+            /* Mejoras para visualización en móviles */
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            input[type="radio"] {
+                width: 18px;
+                height: 18px;
+            }
+            
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            textarea {
+                width: 100% !important;
+            }
+        }
+        
+        /* Estilos para dispositivos muy pequeños */
+        @media screen and (max-width: 480px) {
+            table {
+                font-size: 0.7rem;
+            }
+            
+            .check-column {
+                width: 30px;
+            }
+            
+            h1 {
+                font-size: 1.2rem;
+            }
         }
     </style>
     <script>
