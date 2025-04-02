@@ -914,6 +914,21 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+
+                var planAccion = document.getElementById('plan-accion');
+            if (planAccion) {
+        // Establece un mínimo inicial
+        planAccion.style.minHeight = '200px';
+        
+        // Configura el evento input para redimensionar
+        planAccion.addEventListener('input', function() {
+            autoResize(this);
+        });
+        
+        // Inicializa
+        autoResize(planAccion);
+    }
+};
     </script>
 </head>
 <body>
@@ -1227,7 +1242,7 @@
                 </div>
                 
                 <h3>Recomendaciones y Plan de Acción</h3>
-                <textarea id="plan-accion" rows="17" style="min-height: 400px;" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
+                <textarea id="plan-accion" style="overflow: hidden; min-height: 200px; font-size: 1.2rem; line-height: 1.5;" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
                 
                 <h3>Firmas</h3>
                 <div class="firmas-seccion">
