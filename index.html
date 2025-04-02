@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,17 +14,42 @@
             margin: 0;
             padding: 0;
             background-color: #f5f5f5;
-            font-size: 20px;
+            font-size: 18px;
             color: #333;
             line-height: 1.6;
             max-width: 1200px;
             margin: 0 auto;
         }
         
+        .resumen-seccion {
+            background-color: #f2f2f2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .firmas-seccion {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .firma-bloque {
+            width: 45%;
+            text-align: center;
+        }
+        
+        .linea-firma {
+            height: 1px;
+            background-color: #000;
+            margin: 40px 0 10px 0;
+        }
+        
         .container {
             width: 100%;
             margin: 0 auto;
-            padding: 25px;
+            padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
@@ -32,7 +58,7 @@
             text-align: center;
             color: #003366;
             margin-bottom: 30px;
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 600;
         }
         
@@ -41,14 +67,14 @@
             margin-top: 40px;
             border-bottom: 2px solid #003366;
             padding-bottom: 10px;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 600;
         }
         
         h3 {
             color: #006699;
             margin-top: 30px;
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             font-weight: 500;
         }
         
@@ -61,14 +87,40 @@
         
         .info-section p {
             margin: 12px 0;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-section p strong {
+            display: inline-block;
+            width: 240px;
+        }
+        
+        .info-section input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+        }
+        
+        .fecha-inputs {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .fecha-inputs input {
+            width: 40px;
+            text-align: center;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 30px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0,0,0,0.05);
@@ -76,7 +128,7 @@
         
         th, td {
             border: 1px solid #ddd;
-            padding: 18px;
+            padding: 15px;
             text-align: left;
             vertical-align: top;
         }
@@ -155,7 +207,7 @@
         
         .count {
             margin-bottom: 25px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
         
         .footer {
@@ -163,17 +215,17 @@
             border-top: 1px solid #ddd;
             padding-top: 25px;
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #666;
         }
         
         textarea {
             width: 100%;
-            padding: 15px;
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1rem;
             resize: vertical;
         }
         
@@ -188,10 +240,80 @@
             font-size: 1.3rem;
             font-weight: 500;
             transition: background-color 0.3s;
+            margin: 0 10px;
         }
         
         button:hover {
             background-color: #00264d;
+        }
+        
+        .botones {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        /* Estilos para impresión */
+        @media print {
+            body {
+                background-color: white;
+                font-size: 14px;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .container {
+                width: 100%;
+                padding: 10px;
+                box-shadow: none;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+                margin-top: 20px;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            table {
+                font-size: 0.9rem;
+                page-break-inside: avoid;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+            
+            .info-section {
+                padding: 15px;
+            }
+            
+            .summary {
+                padding: 15px;
+            }
+            
+            .result {
+                padding: 15px;
+            }
+            
+            button, .no-print {
+                display: none;
+            }
+            
+            .count {
+                font-size: 1rem;
+            }
         }
         
         /* Estilos responsivos para móviles */
@@ -201,19 +323,19 @@
             }
             
             body {
-                font-size: 18px;
+                font-size: 16px;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             h2 {
-                font-size: 1.7rem;
+                font-size: 1.5rem;
             }
             
             h3 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             
             /* Mejoras para visualización en móviles */
@@ -222,7 +344,7 @@
                 overflow-x: auto;
                 white-space: nowrap;
                 box-shadow: none;
-                font-size: 1.2rem;
+                font-size: 0.9rem;
             }
             
             input[type="radio"] {
@@ -239,35 +361,18 @@
             }
             
             .info-section p {
-                font-size: 1.3rem;
-            }
-        }
-        
-        /* Estilos para dispositivos muy pequeños */
-        @media screen and (max-width: 480px) {
-            body {
-                font-size: 18px;
+                font-size: 1rem;
+                flex-direction: column;
+                align-items: flex-start;
             }
             
-            table {
-                font-size: 1.2rem;
+            .info-section p strong {
+                width: 100%;
+                margin-bottom: 5px;
             }
             
-            th, td {
-                padding: 12px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .check-column {
-                width: 50px;
-            }
-            
-            input[type="radio"] {
-                width: 30px;
-                height: 30px;
+            .fecha-inputs {
+                width: 100%;
             }
         }
     </style>
@@ -291,36 +396,139 @@
             var resultElement = document.getElementById('resultado-evaluacion');
             resultElement.classList.remove('seguro', 'riesgo', 'inseguro');
             
-            if(porcentaje >= 80) {
-                resultElement.textContent = "ESTABLECIMIENTO SEGURO";
-                resultElement.classList.add('seguro');
-                document.getElementById('recomendacion').textContent = "El establecimiento cumple con la mayoría de los requisitos de seguridad. Se recomienda mantener las medidas actuales y mejorar los aspectos no conformes.";
-            } else if(porcentaje >= 60) {
-                resultElement.textContent = "ESTABLECIMIENTO EN RIESGO";
-                resultElement.classList.add('riesgo');
-                document.getElementById('recomendacion').textContent = "El establecimiento presenta vulnerabilidades significativas que deben ser subsanadas a corto plazo. Se requiere un plan de acción inmediato.";
-            } else if(itemsCumplen + itemsNoCumplen > 0) {
-                resultElement.textContent = "ESTABLECIMIENTO INSEGURO";
-                resultElement.classList.add('inseguro');
-                document.getElementById('recomendacion').textContent = "El establecimiento presenta graves deficiencias de seguridad que lo hacen vulnerable. Se requiere intervención urgente y un plan integral de mejora.";
+            // Determinar el resultado de la evaluación
+            var estadoSeguridad = "PENDIENTE DE EVALUACIÓN";
+            var recomendacionTexto = "Complete la evaluación para generar un análisis de vulnerabilidades.";
+            
+            if (itemsCumplen + itemsNoCumplen > 0) {
+                if (porcentaje >= 80) {
+                    estadoSeguridad = "ESTABLECIMIENTO SEGURO";
+                    resultElement.classList.add('seguro');
+                    recomendacionTexto = "El establecimiento cumple con la mayoría de los requisitos de seguridad. Se recomienda mantener las medidas actuales y mejorar los aspectos no conformes.";
+                } else if (porcentaje >= 60) {
+                    estadoSeguridad = "ESTABLECIMIENTO EN RIESGO";
+                    resultElement.classList.add('riesgo');
+                    recomendacionTexto = "El establecimiento presenta vulnerabilidades significativas que deben ser subsanadas a corto plazo. Se requiere un plan de acción inmediato.";
+                } else {
+                    estadoSeguridad = "ESTABLECIMIENTO INSEGURO";
+                    resultElement.classList.add('inseguro');
+                    recomendacionTexto = "El establecimiento presenta graves deficiencias de seguridad que lo hacen vulnerable. Se requiere intervención urgente y un plan integral de mejora.";
+                }
+            }
+            
+            resultElement.textContent = estadoSeguridad;
+            document.getElementById('recomendacion').textContent = recomendacionTexto;
+            
+            // Generar resumen automático
+            generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad);
+        }
+        
+        function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
+            var resumenElement = document.getElementById('resumen-automatico');
+            
+            // Obtener la entidad y fecha
+            var nombreEntidad = document.querySelector('input[name="nombre_entidad"]').value || "[Nombre no especificado]";
+            var fechaDia = document.querySelector('input[name="dia"]').value || "XX";
+            var fechaMes = document.querySelector('input[name="mes"]').value || "XX";
+            var fechaAno = document.querySelector('input[name="ano"]').value || "XX";
+            
+            // Recopilar información sobre items no cumplidos
+            var itemsNoCumplidosElements = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked');
+            var areasProblematicas = [];
+            
+            itemsNoCumplidosElements.forEach(function(radioButton) {
+                var fila = radioButton.closest('tr');
+                var itemDescripcion = fila.querySelector('td:first-child').textContent;
+                var seccion = fila.closest('table').previousElementSibling.textContent;
+                areasProblematicas.push({ seccion: seccion, item: itemDescripcion });
+            });
+            
+            // Construir el resumen
+            var resumenHTML = `
+                <p><strong>Fecha de Evaluación:</strong> ${fechaDia}/${fechaMes}/${fechaAno}</p>
+                <p><strong>Entidad Evaluada:</strong> ${nombreEntidad}</p>
+                <p><strong>Resultado:</strong> ${estadoSeguridad}</p>
+                <p><strong>Cumplimiento General:</strong> ${porcentaje}% (${itemsCumplen} de ${itemsCumplen + itemsNoCumplen} ítems)</p>
+            `;
+            
+            // Añadir áreas problemáticas si existen
+            if (areasProblematicas.length > 0) {
+                resumenHTML += `<p><strong>Áreas que requieren atención:</strong></p><ul>`;
+                
+                // Agrupar por sección
+                var seccionesAgrupadas = {};
+                areasProblematicas.forEach(function(area) {
+                    if (!seccionesAgrupadas[area.seccion]) {
+                        seccionesAgrupadas[area.seccion] = [];
+                    }
+                    seccionesAgrupadas[area.seccion].push(area.item);
+                });
+                
+                // Añadir cada sección con sus items
+                for (var seccion in seccionesAgrupadas) {
+                    resumenHTML += `<li><strong>${seccion}</strong><ul>`;
+                    seccionesAgrupadas[seccion].forEach(function(item) {
+                        resumenHTML += `<li>${item}</li>`;
+                    });
+                    resumenHTML += `</ul></li>`;
+                }
+                
+                resumenHTML += `</ul>`;
+            } else if (itemsCumplen + itemsNoCumplen > 0) {
+                resumenHTML += `<p><strong>¡Felicitaciones!</strong> Todos los ítems evaluados cumplen con los requisitos de seguridad.</p>`;
             } else {
-                resultElement.textContent = "PENDIENTE DE EVALUACIÓN";
-                document.getElementById('recomendacion').textContent = "Complete la evaluación para generar un análisis de vulnerabilidades.";
+                resumenHTML += `<p>No se han evaluado ítems todavía. Complete la evaluación para generar un análisis detallado.</p>`;
+            }
+            
+            resumenElement.innerHTML = resumenHTML;
+        }
+        
+        function imprimirFormulario() {
+            window.print();
+        }
+        
+        function limpiarFormulario() {
+            if (confirm("¿Está seguro que desea limpiar todo el formulario?")) {
+                document.getElementById("formulario-fiscalizacion").reset();
+                contarCumplimiento();
+                
+                // Limpiar campos de observaciones
+                var observaciones = document.querySelectorAll('.observaciones');
+                for (var i = 0; i < observaciones.length; i++) {
+                    if (observaciones[i].querySelector('textarea')) {
+                        observaciones[i].querySelector('textarea').value = '';
+                    }
+                }
+                
+                // Limpiar resumen automático
+                document.getElementById('resumen-automatico').innerHTML = '<p>El resumen detallado se generará automáticamente al completar la evaluación.</p>';
+                
+                // Limpiar plan de acción
+                document.getElementById('plan-accion').value = '';
             }
         }
         
         window.onload = function() {
+            // Añadir textareas a las celdas de observaciones
+            var observaciones = document.querySelectorAll('.observaciones');
+            for (var i = 0; i < observaciones.length; i++) {
+                var textarea = document.createElement('textarea');
+                textarea.rows = 2;
+                observaciones[i].appendChild(textarea);
+            }
+            
             // Convertir divs a radio buttons
             var checkboxes = document.querySelectorAll('td.check-column div.check-box');
             for(var i = 0; i < checkboxes.length; i++) {
                 var div = checkboxes[i];
                 var td = div.parentNode;
                 var row = td.parentNode;
+                var itemNumber = Math.floor(i/2);
                 var isCumple = td.cellIndex === 1;
                 
                 var radio = document.createElement('input');
                 radio.type = 'radio';
-                radio.name = 'item_' + Math.floor(i/2);
+                radio.name = 'item_' + itemNumber;
                 radio.value = isCumple ? 'cumple' : 'no-cumple';
                 radio.onclick = function() { contarCumplimiento(); };
                 
@@ -331,290 +539,329 @@
 </head>
 <body>
     <div class="container">
-        <h1>CUADRO DE FISCALIZACIÓN DE SEGURIDAD PRIVADA</h1>
-        
-        <div class="info-section">
-            <p><strong>Nombre Entidad:</strong> ____________________________</p>
-            <p><strong>Dirección:</strong> ____________________________</p>
-            <p><strong>Empresa de Seguridad Privada:</strong> ____________________________</p>
-            <p><strong>Fecha de Fiscalización:</strong> ___/___/___</p>
-            <p><strong>Fiscalizador:</strong> _______________________________</p>
-        </div>
-
-        <h2>1. DOCUMENTACIÓN OBLIGATORIA</h2>
-
-        <h3>A. Directiva de Funcionamiento</h3>
-        <table>
-            <tr class="header-row">
-                <th width="50%">Ítem a Fiscalizar</th>
-                <th class="check-column">Cumple</th>
-                <th class="check-column">No Cumple</th>
-                <th class="observaciones">Observaciones</th>
-            </tr>
-            <tr>
-                <td>Directiva de funcionamiento aprobada por OS-10 (Art. 15, Decreto 93)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Vigencia no superior a 3 años (Decreto 32, modifica Decreto 261)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Contiene seguro de vida, contrato trabajo, responsabilidad civil</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-        </table>
-
-        <h3>B. Empresa de Seguridad y Personal</h3>
-        <table>
-            <tr class="header-row">
-                <th width="50%">Ítem a Fiscalizar</th>
-                <th class="check-column">Cumple</th>
-                <th class="check-column">No Cumple</th>
-                <th class="observaciones">Observaciones</th>
-            </tr>
-            <tr>
-                <td>Autorización vigente de la empresa de seguridad</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Contrato de prestación de servicios vigente entre hospital y empresa de seguridad</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Nómina actualizada de guardias de seguridad que prestan servicios en el hospital</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-        </table>
-
-        <h2>2. PERSONAL DE SEGURIDAD</h2>
-
-        <h3>A. Guardias de Seguridad</h3>
-        <table>
-            <tr class="header-row">
-                <th width="50%">Ítem a Fiscalizar</th>
-                <th class="check-column">Cumple</th>
-                <th class="check-column">No Cumple</th>
-                <th class="observaciones">Observaciones</th>
-            </tr>
-            <tr>
-                <td>Credenciales vigentes emitidas por OS-10</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Relación nominal actualizada con turno y área asignada</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Copia de certificados de cursos de formación vigentes (Art. 50, Ley 21.659)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>SERVICIOS DE 12 HORAS (F-35-B o RES. AcuerdoMarco Dirección del Trabajo).</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-        </table>
-
-        <h3>B. Dotación y Turnos</h3>
-        <table>
-            <tr class="header-row">
-                <th width="50%">Ítem a Fiscalizar</th>
-                <th class="check-column">Cumple</th>
-                <th class="check-column">No Cumple</th>
-                <th class="observaciones">Observaciones</th>
-            </tr>
-            <tr>
-                <td>Cantidad de guardias coincide con lo exigido en directiva de funcionamiento</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Distribución adecuada según áreas críticas del hospital</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Cumplimiento de dotación mínima en turnos nocturnos</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Existencia de plan de contingencia ante ausencia de personal</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Libro de novedades actualizado con registro de incidentes</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-        </table>
-
-        <h2>3. UNIFORMES Y EQUIPAMIENTO</h2>
-
-        <h3>A. Uniformes</h3>
-        <table>
-            <tr class="header-row">
-                <th width="50%">Ítem a Fiscalizar</th>
-                <th class="check-column">Cumple</th>
-                <th class="check-column">No Cumple</th>
-                <th class="observaciones">Observaciones</th>
-            </tr>
-            <tr>
-                <td>Uniforme según Art. 8 del Decreto 867 o autorización especial (APARTADO II, 1.4. Decreto 32)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Camisa color negro, manga corta o larga según temporada</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Pantalón color negro</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Calzado y calcetines negros</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Chaleco alta visibilidad color rojo con bandas retrorreflectantes plateadas</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Leyenda "SEGURIDAD PRIVADA" visible en parte trasera del chaleco</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Chaquetón impermeable para turnos nocturnos según características reglamentarias</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-        </table>
-
-        <h3>B. Implementos de Seguridad</h3>
-        <table>
-            <tr class="header-row">
-                <th width="50%">Ítem a Fiscalizar</th>
-                <th class="check-column">Cumple</th>
-                <th class="check-column">No Cumple</th>
-                <th class="observaciones">Observaciones</th>
-            </tr>
-            <tr>
-                <td>Elementos defensivos autorizados (D.32 del 2024)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Ausencia de armas de fuego o elementos prohibidos (Art. 56, Ley 21.659)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Equipos de comunicación operativos y con alcance en todas las áreas</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-        </table>
-
-        <h2>4. SISTEMAS TECNOLÓGICOS</h2>
-
-        <h3>A. Circuito Cerrado de Televisión (CCTV)</h3>
-        <table>
-            <tr class="header-row">
-                <th width="50%">Ítem a Fiscalizar</th>
-                <th class="check-column">Cumple</th>
-                <th class="check-column">No Cumple</th>
-                <th class="observaciones">Observaciones</th>
-            </tr>
-            <tr>
-                <td>Sistema operativo las 24 horas (Art. 17, Decreto 1122)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Cámaras en áreas críticas: accesos, urgencias, farmacia, estacionamientos</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Grabación digital con almacenamiento mínimo de 60 días</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Sala de monitoreo Operador CCTV Capacitado (Decreto 32 Exento del 2024)</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-            <tr>
-                <td>Protocolo de acción ante detección de incidentes</td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="check-column"><div class="check-box"></div></td>
-                <td class="observaciones"></td>
-            </tr>
-        </table>
-
-        <div class="summary">
-            <h3>Resultados de la Fiscalización</h3>
-            <div class="count">
-                <p>Total de ítems evaluados: <span id="total-items">0</span></p>
-                <p>Ítems que cumplen: <span id="items-cumplen">0</span></p>
-                <p>Ítems que no cumplen: <span id="items-no-cumplen">0</span></p>
-                <p>Porcentaje de cumplimiento: <span id="porcentaje-cumplimiento">0</span>%</p>
+        <form id="formulario-fiscalizacion">
+            <h1>CUADRO DE FISCALIZACIÓN DE SEGURIDAD PRIVADA</h1>
+            
+            <div class="info-section">
+                <p><strong>Nombre Entidad:</strong> <input type="text" name="nombre_entidad" /></p>
+                <p><strong>Dirección:</strong> <input type="text" name="direccion" /></p>
+                <p><strong>Empresa de Seguridad Privada:</strong> <input type="text" name="empresa_seguridad" /></p>
+                <p>
+                    <strong>Fecha de Fiscalización:</strong> 
+                    <span class="fecha-inputs">
+                        <input type="text" name="dia" maxlength="2" placeholder="DD" /> / 
+                        <input type="text" name="mes" maxlength="2" placeholder="MM" /> / 
+                        <input type="text" name="ano" maxlength="2" placeholder="AA" />
+                    </span>
+                </p>
+                <p><strong>Fiscalizador:</strong> <input type="text" name="fiscalizador" /></p>
             </div>
-            <div id="resultado-evaluacion" class="result">PENDIENTE DE EVALUACIÓN</div>
-            <p id="recomendacion">Complete la evaluación para generar un análisis de vulnerabilidades.</p>
-        </div>
-        
-        <div class="footer">
-            <p>Realizado según normativa vigente de seguridad privada en establecimientos de salud.</p>
-            <p>© 2025 - Dirección de Seguridad Hospitalaria</p>
-        </div>
+
+            <h2>1. DOCUMENTACIÓN OBLIGATORIA</h2>
+
+            <h3>A. Directiva de Funcionamiento</h3>
+            <table>
+                <tr class="header-row">
+                    <th width="50%">Ítem a Fiscalizar</th>
+                    <th class="check-column">Cumple</th>
+                    <th class="check-column">No Cumple</th>
+                    <th class="observaciones">Observaciones</th>
+                </tr>
+                <tr>
+                    <td>Directiva de funcionamiento aprobada por OS-10 (Art. 15, Decreto 93)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Vigencia no superior a 3 años (Decreto 32, modifica Decreto 261)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Contiene seguro de vida, contrato trabajo, responsabilidad civil</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+            </table>
+
+            <h3>B. Empresa de Seguridad y Personal</h3>
+            <table>
+                <tr class="header-row">
+                    <th width="50%">Ítem a Fiscalizar</th>
+                    <th class="check-column">Cumple</th>
+                    <th class="check-column">No Cumple</th>
+                    <th class="observaciones">Observaciones</th>
+                </tr>
+                <tr>
+                    <td>Autorización vigente de la empresa de seguridad</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Contrato de prestación de servicios vigente entre hospital y empresa de seguridad</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Nómina actualizada de guardias de seguridad que prestan servicios en el hospital</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+            </table>
+
+            <div class="page-break"></div>
+            <h2>2. PERSONAL DE SEGURIDAD</h2>
+
+            <h3>A. Guardias de Seguridad</h3>
+            <table>
+                <tr class="header-row">
+                    <th width="50%">Ítem a Fiscalizar</th>
+                    <th class="check-column">Cumple</th>
+                    <th class="check-column">No Cumple</th>
+                    <th class="observaciones">Observaciones</th>
+                </tr>
+                <tr>
+                    <td>Credenciales vigentes emitidas por OS-10</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Relación nominal actualizada con turno y área asignada</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Copia de certificados de cursos de formación vigentes (Art. 50, Ley 21.659)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>SERVICIOS DE 12 HORAS (F-35-B o RES. AcuerdoMarco Dirección del Trabajo).</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+            </table>
+
+            <h3>B. Dotación y Turnos</h3>
+            <table>
+                <tr class="header-row">
+                    <th width="50%">Ítem a Fiscalizar</th>
+                    <th class="check-column">Cumple</th>
+                    <th class="check-column">No Cumple</th>
+                    <th class="observaciones">Observaciones</th>
+                </tr>
+                <tr>
+                    <td>Cantidad de guardias coincide con lo exigido en directiva de funcionamiento</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Distribución adecuada según áreas críticas del hospital</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Cumplimiento de dotación mínima en turnos nocturnos</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Existencia de plan de contingencia ante ausencia de personal</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Libro de novedades actualizado con registro de incidentes</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+            </table>
+
+            <div class="page-break"></div>
+            <h2>3. UNIFORMES Y EQUIPAMIENTO</h2>
+
+            <h3>A. Uniformes</h3>
+            <table>
+                <tr class="header-row">
+                    <th width="50%">Ítem a Fiscalizar</th>
+                    <th class="check-column">Cumple</th>
+                    <th class="check-column">No Cumple</th>
+                    <th class="observaciones">Observaciones</th>
+                </tr>
+                <tr>
+                    <td>Uniforme según Art. 8 del Decreto 867 o autorización especial (APARTADO II, 1.4. Decreto 32)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Camisa color negro, manga corta o larga según temporada</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Pantalón color negro</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Calzado y calcetines negros</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Chaleco alta visibilidad color rojo con bandas retrorreflectantes plateadas</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Leyenda "SEGURIDAD PRIVADA" visible en parte trasera del chaleco</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Chaquetón impermeable para turnos nocturnos según características reglamentarias</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+            </table>
+
+            <h3>B. Implementos de Seguridad</h3>
+            <table>
+                <tr class="header-row">
+                    <th width="50%">Ítem a Fiscalizar</th>
+                    <th class="check-column">Cumple</th>
+                    <th class="check-column">No Cumple</th>
+                    <th class="observaciones">Observaciones</th>
+                </tr>
+              <tr>
+                    <td>Elementos defensivos autorizados (D.32 del 2024)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Ausencia de armas de fuego o elementos prohibidos (Art. 56, Ley 21.659)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Equipos de comunicación operativos y con alcance en todas las áreas</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+            </table>
+
+            <div class="page-break"></div>
+            <h2>4. SISTEMAS TECNOLÓGICOS</h2>
+
+            <h3>A. Circuito Cerrado de Televisión (CCTV)</h3>
+            <table>
+                <tr class="header-row">
+                    <th width="50%">Ítem a Fiscalizar</th>
+                    <th class="check-column">Cumple</th>
+                    <th class="check-column">No Cumple</th>
+                    <th class="observaciones">Observaciones</th>
+                </tr>
+                <tr>
+                    <td>Sistema operativo las 24 horas (Art. 17, Decreto 1122)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Cámaras en áreas críticas: accesos, urgencias, farmacia, estacionamientos</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Grabación digital con almacenamiento mínimo de 60 días</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Sala de monitoreo Operador CCTV Capacitado (Decreto 32 Exento del 2024)</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+                <tr>
+                    <td>Protocolo de acción ante detección de incidentes</td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="check-column"><div class="check-box"></div></td>
+                    <td class="observaciones"></td>
+                </tr>
+            </table>
+
+            <div class="summary">
+                <h3>Resultados de la Fiscalización</h3>
+                <div class="count">
+                    <p>Total de ítems evaluados: <span id="total-items">0</span></p>
+                    <p>Ítems que cumplen: <span id="items-cumplen">0</span></p>
+                    <p>Ítems que no cumplen: <span id="items-no-cumplen">0</span></p>
+                    <p>Porcentaje de cumplimiento: <span id="porcentaje-cumplimiento">0</span>%</p>
+                </div>
+                <div id="resultado-evaluacion" class="result">PENDIENTE DE EVALUACIÓN</div>
+                <p id="recomendacion">Complete la evaluación para generar un análisis de vulnerabilidades.</p>
+                
+                <h3>Resumen Automático de la Fiscalización</h3>
+                <div id="resumen-automatico" class="resumen-seccion">
+                    <p>El resumen detallado se generará automáticamente al completar la evaluación.</p>
+                </div>
+                
+                <h3>Recomendaciones y Plan de Acción</h3>
+                <textarea id="plan-accion" rows="5" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
+                
+                <h3>Firmas</h3>
+                <div class="firmas-seccion">
+                    <div class="firma-bloque">
+                        <p>Fiscalizador</p>
+                        <div class="linea-firma"></div>
+                        <p>Nombre y Firma</p>
+                    </div>
+                    <div class="firma-bloque">
+                        <p>Representante Establecimiento</p>
+                        <div class="linea-firma"></div>
+                        <p>Nombre y Firma</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="botones no-print">
+                <button type="button" onclick="imprimirFormulario()">Imprimir Formulario</button>
+                <button type="button" onclick="limpiarFormulario()">Limpiar Formulario</button>
+            </div>
+            
+            <div class="footer">
+                <p>Realizado según normativa vigente de seguridad privada en establecimientos de salud.</p>
+                <p>© 2025 - Dirección de Seguridad Hospitalaria</p>
+            </div>
+        </form>
     </div>
 </body>
 </html>
