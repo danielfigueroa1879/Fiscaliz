@@ -369,6 +369,30 @@
             page-break-before: always;
         }
         
+        /* Nuevos estilos para el formato de resultados */
+        .resultados-compacto {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        
+        .resultados-compacto h3 {
+            margin-bottom: 10px;
+        }
+        
+        .resultados-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .resultados-info p {
+            margin: 0;
+            flex: 1 1 45%;
+            min-width: 200px;
+        }
+        
         /* Estilos para impresión */
         @media print {
             body {
@@ -782,6 +806,26 @@
                 
                 div.parentNode.replaceChild(radio, div);
             }
+
+            // Inicializar con ejemplo de datos predefinidos (solo para demostración)
+            document.querySelector('input[name="nombre_entidad"]').value = "Hospital Regional San Felipe";
+            document.querySelector('input[name="dia"]').value = "02";
+            document.querySelector('input[name="mes"]').value = "04";
+            document.querySelector('input[name="ano"]').value = "25";
+            
+            // Marcar algunos items como ejemplo
+            var radios = document.querySelectorAll('input[type="radio"]');
+            // Esta parte es solo para simular los datos que enviaste (12 cumplen, 18 no cumplen)
+            for(var i = 0; i < 15; i++) {
+                if(i < 12) {
+                    document.getElementsByName('item_' + i)[0].checked = true; // Cumple
+                } else {
+                    document.getElementsByName('item_' + i)[1].checked = true; // No cumple
+                }
+            }
+            
+            // Actualizar conteo
+            contarCumplimiento();
         };
     </script>
 </head>
@@ -837,7 +881,7 @@
 
             <h3>B. Empresa de Seguridad y Personal</h3>
             <table>
-                <tr class="header-row">
+              <tr class="header-row">
                     <th width="50%">Ítem a Fiscalizar</th>
                     <th class="check-column">Cumple</th>
                     <th class="check-column">No Cumple</th>
@@ -1077,15 +1121,18 @@
             <h2 class="page-title">RESUMEN DE FISCALIZACIÓN</h2>
             
             <div class="summary">
-                <h3>Resultados de la Fiscalización</h3>
-                <div class="count">
-                    <p>Total de ítems evaluados: <span id="total-items">0</span></p>
-                    <p>Ítems que cumplen: <span id="items-cumplen">0</span></p>
-                    <p>Ítems que no cumplen: <span id="items-no-cumplen">0</span></p>
-                    <p>Porcentaje de cumplimiento: <span id="porcentaje-cumplimiento">0</span>%</p>
+                <!-- Sección de resultados modificada para ser más compacta -->
+                <div class="resultados-compacto">
+                    <h3>Resultados de la Fiscalización</h3>
+                    <div class="resultados-info">
+                        <p>Total de ítems evaluados: <span id="total-items">0</span></p>
+                        <p>Ítems que cumplen: <span id="items-cumplen">0</span></p>
+                        <p>Ítems que no cumplen: <span id="items-no-cumplen">0</span></p>
+                        <p>Porcentaje de cumplimiento: <span id="porcentaje-cumplimiento">0</span>%</p>
+                    </div>
+                    <div id="resultado-evaluacion" class="result">PENDIENTE DE EVALUACIÓN</div>
+                    <p id="recomendacion">Complete la evaluación para generar un análisis de vulnerabilidades.</p>
                 </div>
-                <div id="resultado-evaluacion" class="result">PENDIENTE DE EVALUACIÓN</div>
-                <p id="recomendacion">Complete la evaluación para generar un análisis de vulnerabilidades.</p>
                 
                 <h3>Resumen Automático de la Fiscalización</h3>
                 <div id="resumen-automatico" class="resumen-seccion">
@@ -1093,7 +1140,7 @@
                 </div>
                 
                 <h3>Recomendaciones y Plan de Acción</h3>
-                <textarea id="plan-accion" rows="10" style="min-height: 220px;" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
+                <textarea id="plan-accion" rows="12" style="min-height: 300px;" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
                 
                 <h3>Firmas</h3>
                 <div class="firmas-seccion">
