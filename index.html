@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cuadro de Fiscalización de Seguridad Privada</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -431,7 +431,25 @@
                 font-size: 1rem;
             }
             
-            .page-break {
+            /* Asegurar que todas las secciones con page-break se impriman correctamente */
+            .page-break, h2.page-title {
+                page-break-before: always;
+                display: block;
+            }
+            
+            /* Añadir contenido a páginas en blanco */
+            .page-content {
+                display: block;
+                min-height: 50vh;
+            }
+            
+            /* Prevenir que elementos queden huérfanos en la impresión */
+            h2, h3, table, .foto-container, .summary {
+                page-break-inside: avoid;
+            }
+            
+            /* Controlar el flujo de página */
+            #resumen-section, #set-fotografico-section {
                 page-break-before: always;
             }
         }
@@ -752,7 +770,61 @@
             }
         }
         
+        // Función para guardar como PDF
+        function guardarPDF() {
+            window.alert("Para guardar como PDF, utilice la opción de imprimir y seleccione 'Guardar como PDF' en las opciones de destino de su navegador.");
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        }
+        
+        // Función para asegurar que las páginas 5 y 7 no estén en blanco
+        function asegurarPaginasCompletas() {
+            // Añadir contenido mínimo para evitar páginas en blanco
+            var secciones = document.querySelectorAll('h2.page-title');
+            
+            // Asegurar que cada sección tenga contenido mínimo
+            secciones.forEach(function(seccion) {
+                var siguienteElemento = seccion.nextElementSibling;
+                if (!siguienteElemento || 
+                    (siguienteElemento.tagName === 'DIV' && siguienteElemento.classList.contains('page-break'))) {
+                    // Añadir contenido mínimo si la sección está vacía
+                    var contenidoMinimo = document.createElement('div');
+                    contenidoMinimo.className = 'page-content';
+                    contenidoMinimo.innerHTML = '<p>Contenido de la sección ' + seccion.textContent + '</p>';
+                    seccion.parentNode.insertBefore(contenidoMinimo, siguienteElemento);
+                }
+            });
+        }
+        
+        // Función para mostrar la imagen seleccionada
+        function mostrarImagen(input, previewId) {
+            var preview = document.getElementById(previewId);
+            preview.innerHTML = '';
+            
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'foto-preview';
+                    preview.appendChild(img);
+                    
+                    // Ocultar el texto y el botón cuando hay una imagen
+                    var placeholder = input.parentElement;
+                    placeholder.querySelector('p').style.display = 'none';
+                    placeholder.querySelector('label').style.display = 'none';
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        
         window.onload = function() {
+            // Asegurar que no haya páginas en blanco
+            asegurarPaginasCompletas();
+            
             // Añadir textareas a las celdas de observaciones
             var observaciones = document.querySelectorAll('.observaciones');
             for (var i = 0; i < observaciones.length; i++) {
@@ -814,57 +886,9 @@
                     <th class="check-column">Cumple</th>
                     <th class="check-column">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
-                </tr>
-                <tr>
-                    <td>Directiva de funcionamiento aprobada por OS-10 (Art. 15, Decreto 93)</td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="observaciones"></td>
-                </tr>
-                <tr>
-                    <td>Vigencia no superior a 3 años (Decreto 32, modifica Decreto 261)</td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="observaciones"></td>
-                </tr>
-                <tr>
-                    <td>Contiene seguro de vida, contrato trabajo, responsabilidad civil</td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="observaciones"></td>
-                </tr>
-            </table>
-
-            <h3>B. Empresa de Seguridad y Personal</h3>
-            <table>
-                <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
-                    <th class="observaciones">Observaciones</th>
-                </tr>
-                <tr>
-                    <td>Autorización vigente de la empresa de seguridad</td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="observaciones"></td>
-                </tr>
-                <tr>
-                    <td>Contrato de prestación de servicios vigente entre hospital y empresa de seguridad</td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="observaciones"></td>
-                </tr>
-                <tr>
-                    <td>Nómina actualizada de guardias de seguridad que prestan servicios en el hospital</td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="check-column"><div class="check-box"></div></td>
-                    <td class="observaciones"></td>
-                </tr>
-            </table>
-
-            <div class="page-break"></div>
-            <h2>2. PERSONAL DE SEGURIDAD</h2>
+                </tr
+                    <div class="page-break"></div>
+            <h2 class="page-title">2. PERSONAL DE SEGURIDAD</h2>
 
             <h3>A. Guardias de Seguridad</h3>
             <table>
@@ -941,7 +965,7 @@
             </table>
 
             <div class="page-break"></div>
-            <h2>3. UNIFORMES Y EQUIPAMIENTO</h2>
+            <h2 class="page-title">3. UNIFORMES Y EQUIPAMIENTO</h2>
 
             <h3>A. Uniformes</h3>
             <table>
@@ -1024,7 +1048,7 @@
             </table>
 
             <div class="page-break"></div>
-            <h2>4. SISTEMAS TECNOLÓGICOS</h2>
+            <h2 class="page-title">4. SISTEMAS TECNOLÓGICOS</h2>
 
             <h3>A. Circuito Cerrado de Televisión (CCTV)</h3>
             <table>
@@ -1074,7 +1098,7 @@
             
             <div class="page-break"></div>
             
-            <h2 class="page-title">RESUMEN DE FISCALIZACIÓN</h2>
+            <h2 class="page-title" id="resumen-section">5. RESUMEN DE FISCALIZACIÓN</h2>
             
             <div class="summary">
                 <h3>Resultados de la Fiscalización</h3>
@@ -1107,7 +1131,7 @@
             
             <div class="page-break"></div>
             
-            <h2 class="page-title">SET FOTOGRÁFICO</h2>
+            <h2 class="page-title" id="set-fotografico-section">6. SET FOTOGRÁFICO</h2>
             
             <div class="set-fotografico">
                 <div class="foto-container">
@@ -1147,14 +1171,804 @@
             </div>
         </form>
     </div>
-
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cuadro de Fiscalización de Seguridad Privada</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .resumen-seccion {
+            background-color: #f2f2f2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .resumen-seccion li {
+            margin-bottom: 8px;
+        }
+        
+        .resumen-seccion ul ul li {
+            color: #333;
+        }
+        
+        .no-cumple-tag {
+            font-weight: 700;
+            color: #ff0000;
+            margin-left: 5px;
+        }
+        
+        .firmas-seccion {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .firma-bloque {
+            width: 300px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .set-fotografico {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .foto-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .foto-marco {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .foto-placeholder {
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .foto-placeholder p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .foto-input {
+            display: none;
+        }
+        
+        .foto-label {
+            background-color: #003366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .foto-label:hover {
+            background-color: #004080;
+        }
+        
+        .foto-descripcion {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .preview-imagen {
+            width: 100%;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .foto-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .linea-firma {
+            height: 1px;
+            background-color: #000;
+            margin: 40px 0 10px 0;
+        }
+        
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        
+        h2 {
+            color: #003366;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 8px;
+            font-size: 1.7rem;
+            font-weight: 600;
+            clear: both;
+            page-break-before: auto;
+        }
+        
+        h2.page-title {
+            page-break-before: always;
+            margin-top: 20px;
+        }
+        
+        h3 {
+            color: #006699;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+        
+        .info-section {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .info-section p {
+            margin: 12px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-section p strong {
+            display: inline-block;
+            width: 240px;
+        }
+        
+        .info-section input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+        }
+        
+        .fecha-inputs {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .fecha-inputs input {
+            width: 40px;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            border-radius: 10px;
+            overflow: visible;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+        }
+        
+        th {
+            background-color: #003366;
+            color: white;
+            font-weight: 500;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .header-row {
+            background-color: #004080;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .check-column {
+            width: 50px;
+            text-align: center;
+        }
+        
+        .observaciones {
+            min-width: 350px;
+            width: 40%;
+        }
+        
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        
+        .summary {
+            margin-top: 40px;
+            padding: 30px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .summary h3 {
+            margin-top: 0;
+            color: #003366;
+        }
+        
+        .result {
+            font-weight: 600;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+        
+        .seguro {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        
+        .riesgo {
+            background-color: #fcf8e3;
+            color: #8a6d3b;
+            border: 1px solid #faebcc;
+        }
+        
+        .inseguro {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+        
+        .count {
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            padding-top: 25px;
+            text-align: center;
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 70px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 0;
+        }
+        
+        button {
+            padding: 16px 32px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            margin: 0 10px;
+        }
+        
+        button:hover {
+            background-color: #00264d;
+        }
+        
+        .botones {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        /* Estilos para impresión */
+        @media print {
+            body {
+                background-color: white;
+                font-size: 14px;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .container {
+                width: 100%;
+                padding: 10px;
+                box-shadow: none;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+                margin-top: 20px;
+            }
+            
+            h2.page-title {
+                page-break-before: always;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            table {
+                font-size: 0.9rem;
+                page-break-inside: avoid;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+            
+            .info-section {
+                padding: 15px;
+            }
+            
+            .summary {
+                padding: 15px;
+            }
+            
+            .result {
+                padding: 15px;
+            }
+            
+            button, .no-print {
+                display: none;
+            }
+            
+            .count {
+                font-size: 1rem;
+            }
+            
+            /* Asegurar que todas las secciones con page-break se impriman correctamente */
+            .page-break, h2.page-title {
+                page-break-before: always;
+                display: block;
+            }
+            
+            /* Añadir contenido a páginas en blanco */
+            .page-content {
+                display: block;
+                min-height: 50vh;
+            }
+            
+            /* Prevenir que elementos queden huérfanos en la impresión */
+            h2, h3, table, .foto-container, .summary {
+                page-break-inside: avoid;
+            }
+            
+            /* Controlar el flujo de página */
+            #resumen-section, #set-fotografico-section {
+                page-break-before: always;
+            }
+        }
+        
+        /* Estilos responsivos para dispositivos móviles y pantallas pequeñas */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 10px;
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            body {
+                font-size: 14px;
+                padding: 0;
+                margin: 0;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin-top: 20px;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+                margin-top: 15px;
+            }
+            
+            /* Hacer la tabla responsive */
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: normal;
+                box-shadow: none;
+                font-size: 0.9rem;
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+            
+            .observaciones {
+                min-width: 250px;
+                width: auto;
+            }
+            
+            input[type="radio"] {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .check-column {
+                width: 40px;
+            }
+            
+            .info-section {
+                padding: 15px;
+            }
+            
+            .info-section p {
+                flex-direction: column;
+                align-items: flex-start;
+                margin: 10px 0;
+            }
+            
+            .info-section p strong {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            
+            .info-section input {
+                width: 100%;
+            }
+            
+            .fecha-inputs {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .summary {
+                padding: 15px;
+            }
+            
+            .result {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+            
+            .count {
+                font-size: 0.9rem;
+            }
+            
+            .botones {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 250px;
+                margin: 10px 0;
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            textarea {
+                min-height: 70px;
+            }
+            
+            .foto-marco {
+                min-height: 200px;
+            }
+            
+            .foto-descripcion {
+                min-height: 60px;
+            }
+        }
+        
+        /* Ajustes específicos para dispositivos muy pequeños */
+        @media screen and (max-width: 480px) {
+            body {
+                font-size: 13px;
+            }
+            
+            .container {
+                padding: 8px;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+            
+            input[type="radio"] {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .observaciones {
+                min-width: 150px;
+            }
+            
+            .info-section, .summary {
+                padding: 12px;
+            }
+        }
+    </style>
     <script>
+        function contarCumplimiento() {
+            var totalItems = document.querySelectorAll('input[type="radio"][name^="item_"]').length / 2;
+            var itemsCumplen = document.querySelectorAll('input[type="radio"][value="cumple"]:checked').length;
+            var itemsNoCumplen = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked').length;
+            
+            document.getElementById('total-items').textContent = totalItems;
+            document.getElementById('items-cumplen').textContent = itemsCumplen;
+            document.getElementById('items-no-cumplen').textContent = itemsNoCumplen;
+            
+            var porcentaje = 0;
+            if (itemsCumplen + itemsNoCumplen > 0) {
+                porcentaje = Math.round((itemsCumplen / (itemsCumplen + itemsNoCumplen)) * 100);
+            }
+            
+            document.getElementById('porcentaje-cumplimiento').textContent = porcentaje;
+            
+            var resultElement = document.getElementById('resultado-evaluacion');
+            resultElement.classList.remove('seguro', 'riesgo', 'inseguro');
+            
+            // Determinar el resultado de la evaluación
+            var estadoSeguridad = "PENDIENTE DE EVALUACIÓN";
+            var recomendacionTexto = "Complete la evaluación para generar un análisis de vulnerabilidades.";
+            
+            if (itemsCumplen + itemsNoCumplen > 0) {
+                if (porcentaje >= 80) {
+                    estadoSeguridad = "ESTABLECIMIENTO SEGURO";
+                    resultElement.classList.add('seguro');
+                    recomendacionTexto = "El establecimiento cumple con la mayoría de los requisitos de seguridad. Se recomienda mantener las medidas actuales y mejorar los aspectos no conformes.";
+                } else if (porcentaje >= 60) {
+                    estadoSeguridad = "ESTABLECIMIENTO EN RIESGO";
+                    resultElement.classList.add('riesgo');
+                    recomendacionTexto = "El establecimiento presenta vulnerabilidades significativas que deben ser subsanadas a corto plazo. Se requiere un plan de acción inmediato.";
+                } else {
+                    estadoSeguridad = "ESTABLECIMIENTO INSEGURO";
+                    resultElement.classList.add('inseguro');
+                    recomendacionTexto = "El establecimiento presenta graves deficiencias de seguridad que lo hacen vulnerable. Se requiere intervención urgente y un plan integral de mejora.";
+                }
+            }
+            
+            resultElement.textContent = estadoSeguridad;
+            document.getElementById('recomendacion').textContent = recomendacionTexto;
+            
+            // Generar resumen automático
+            generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad);
+        }
+        
+        function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
+            var resumenElement = document.getElementById('resumen-automatico');
+            
+            // Obtener la entidad y fecha
+            var nombreEntidad = document.querySelector('input[name="nombre_entidad"]').value || "[Nombre no especificado]";
+            var fechaDia = document.querySelector('input[name="dia"]').value || "XX";
+            var fechaMes = document.querySelector('input[name="mes"]').value || "XX";
+            var fechaAno = document.querySelector('input[name="ano"]').value || "XX";
+            
+            // Recopilar información sobre items no cumplidos
+            var itemsNoCumplidosElements = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked');
+            var areasProblematicas = [];
+            
+            itemsNoCumplidosElements.forEach(function(radioButton) {
+                var fila = radioButton.closest('tr');
+                var itemDescripcion = fila.querySelector('td:first-child').textContent;
+                // Excluir cualquier ítem relacionado con armamento si hubiera
+                if (!itemDescripcion.toLowerCase().includes("arma") && 
+                    !itemDescripcion.toLowerCase().includes("armamento") &&
+                    !itemDescripcion.toLowerCase().includes("munición") &&
+                    !itemDescripcion.toLowerCase().includes("pistola") &&
+                    !itemDescripcion.toLowerCase().includes("revólver")) {
+                    var seccion = fila.closest('table').previousElementSibling.textContent;
+                    areasProblematicas.push({ seccion: seccion, item: itemDescripcion });
+                }
+            });
+            
+            // Construir el resumen
+            var resumenHTML = `
+                <p><strong>Fecha de Evaluación:</strong> ${fechaDia}/${fechaMes}/${fechaAno}</p>
+                <p><strong>Entidad Evaluada:</strong> ${nombreEntidad}</p>
+                <p><strong>Resultado:</strong> ${estadoSeguridad}</p>
+                <p><strong>Cumplimiento General:</strong> ${porcentaje}% (${itemsCumplen} de ${itemsCumplen + itemsNoCumplen} ítems)</p>
+            `;
+            
+            // Añadir áreas problemáticas si existen
+            if (areasProblematicas.length > 0) {
+                resumenHTML += `<p><strong>Áreas que requieren atención:</strong></p><ul>`;
+                
+                // Agrupar por sección
+                var seccionesAgrupadas = {};
+                areasProblematicas.forEach(function(area) {
+                    if (!seccionesAgrupadas[area.seccion]) {
+                        seccionesAgrupadas[area.seccion] = [];
+                    }
+                    seccionesAgrupadas[area.seccion].push(area.item);
+                });
+                
+                // Añadir cada sección con sus items
+                for (var seccion in seccionesAgrupadas) {
+                    resumenHTML += `<li><strong>${seccion}</strong><ul>`;
+                    seccionesAgrupadas[seccion].forEach(function(item) {
+                        resumenHTML += `<li>${item} <span class="no-cumple-tag">NO CUMPLE</span></li>`;
+                    });
+                    resumenHTML += `</ul></li>`;
+                }
+                
+                resumenHTML += `</ul>`;
+            } else if (itemsCumplen + itemsNoCumplen > 0) {
+                resumenHTML += `<p><strong>¡Felicitaciones!</strong> Todos los ítems evaluados cumplen con los requisitos de seguridad.</p>`;
+            } else {
+                resumenHTML += `<p>No se han evaluado ítems todavía. Complete la evaluación para generar un análisis detallado.</p>`;
+            }
+            
+            resumenElement.innerHTML = resumenHTML;
+        }
+        
+        function imprimirFormulario() {
+            window.print();
+        }
+        
+        function limpiarFormulario() {
+            if (confirm("¿Está seguro que desea limpiar todo el formulario?")) {
+                document.getElementById("formulario-fiscalizacion").reset();
+                contarCumplimiento();
+                
+                // Limpiar campos de observaciones
+                var observaciones = document.querySelectorAll('.observaciones');
+                for (var i = 0; i < observaciones.length; i++) {
+                    if (observaciones[i].querySelector('textarea')) {
+                        observaciones[i].querySelector('textarea').value = '';
+                    }
+                }
+                
+                // Limpiar resumen automático
+                document.getElementById('resumen-automatico').innerHTML = '<p>El resumen detallado se generará automáticamente al completar la evaluación.</p>';
+                
+                // Limpiar plan de acción
+                document.getElementById('plan-accion').value = '';
+                
+                // Limpiar previsualizaciones de fotos
+                document.getElementById('preview-foto1').innerHTML = '';
+                document.getElementById('preview-foto2').innerHTML = '';
+                
+                // Restaurar etiquetas y textos de fotografías
+                var fotoPlaceholders = document.querySelectorAll('.foto-placeholder');
+                for (var i = 0; i < fotoPlaceholders.length; i++) {
+                    fotoPlaceholders[i].querySelector('p').style.display = 'block';
+                    fotoPlaceholders[i].querySelector('label').style.display = 'inline-block';
+                }
+                
+                // Limpiar descripciones de fotos
+                var fotoDescripciones = document.querySelectorAll('.foto-descripcion');
+                for (var i = 0; i < fotoDescripciones.length; i++) {
+                    fotoDescripciones[i].value = '';
+                }
+            }
+        }
+        
         // Función para guardar como PDF
         function guardarPDF() {
             window.alert("Para guardar como PDF, utilice la opción de imprimir y seleccione 'Guardar como PDF' en las opciones de destino de su navegador.");
             setTimeout(function() {
                 window.print();
             }, 500);
+        }
+        
+        // Función para asegurar que las páginas 5 y 7 no estén en blanco
+        function asegurarPaginasCompletas() {
+            // Añadir contenido mínimo para evitar páginas en blanco
+            var secciones = document.querySelectorAll('h2.page-title');
+            
+            // Asegurar que cada sección tenga contenido mínimo
+            secciones.forEach(function(seccion) {
+                var siguienteElemento = seccion.nextElementSibling;
+                if (!siguienteElemento || 
+                    (siguienteElemento.tagName === 'DIV' && siguienteElemento.classList.contains('page-break'))) {
+                    // Añadir contenido mínimo si la sección está vacía
+                    var contenidoMinimo = document.createElement('div');
+                    contenidoMinimo.className = 'page-content';
+                    contenidoMinimo.innerHTML = '<p>Contenido de la sección ' + seccion.textContent + '</p>';
+                    seccion.parentNode.insertBefore(contenidoMinimo, siguienteElemento);
+                }
+            });
         }
         
         // Función para mostrar la imagen seleccionada
@@ -1180,6 +1994,40 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
+        
+        window.onload = function() {
+            // Asegurar que no haya páginas en blanco
+            asegurarPaginasCompletas();
+            
+            // Añadir textareas a las celdas de observaciones
+            var observaciones = document.querySelectorAll('.observaciones');
+            for (var i = 0; i < observaciones.length; i++) {
+                var textarea = document.createElement('textarea');
+                textarea.rows = 3;
+                textarea.style.minHeight = "70px";
+                textarea.style.width = "100%";
+                textarea.style.boxSizing = "border-box";
+                textarea.placeholder = "Ingrese sus observaciones aquí...";
+                observaciones[i].appendChild(textarea);
+            }
+            
+            // Convertir divs a radio buttons
+            var checkboxes = document.querySelectorAll('td.check-column div.check-box');
+            for(var i = 0; i < checkboxes.length; i++) {
+                var div = checkboxes[i];
+                var td = div.parentNode;
+                var row = td.parentNode;
+                var itemNumber = Math.floor(i/2);
+                var isCumple = td.cellIndex === 1;
+                
+                var radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = 'item_' + itemNumber;
+                radio.value = isCumple ? 'cumple' : 'no-cumple';
+                radio.onclick = function() { contarCumplimiento(); };
+                
+                div.parentNode.replaceChild(radio, div);
+            }
+        };
     </script>
-</body>
-</html>
+</head>
