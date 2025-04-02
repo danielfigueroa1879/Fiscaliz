@@ -40,6 +40,7 @@
             font-weight: 700;
             color: #ff0000;
             margin-left: 5px;
+            font-size: 0.85rem;
         }
         
         .firmas-seccion {
@@ -393,6 +394,46 @@
             min-width: 200px;
         }
         
+        /* Nuevos estilos para hacer el resumen más compacto */
+        .resumen-info-compacto {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            margin-bottom: 8px;
+        }
+        
+        .resumen-info-compacto p {
+            margin: 3px 10px 3px 0;
+            font-size: 0.95rem;
+        }
+        
+        .areas-atencion h4 {
+            margin: 8px 0 3px 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .areas-atencion ul {
+            margin: 3px 0;
+            padding-left: 18px;
+        }
+        
+        .areas-atencion ul li {
+            margin-bottom: 2px;
+            font-size: 0.9rem;
+        }
+        
+        .areas-atencion ul ul {
+            margin: 2px 0;
+            padding-left: 15px;
+        }
+        
+        .areas-atencion ul ul li {
+            margin-bottom: 1px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
         /* Estilos para impresión */
         @media print {
             body {
@@ -432,7 +473,7 @@
             }
             
             th, td {
-                padding: 10px;
+                padding:, 10px;
             }
             
             .info-section {
@@ -694,17 +735,20 @@
                 }
             });
             
-            // Construir el resumen
+            // Construir el resumen en formato compacto como se solicitó
             var resumenHTML = `
-                <p><strong>Fecha de Evaluación:</strong> ${fechaDia}/${fechaMes}/${fechaAno}</p>
-                <p><strong>Entidad Evaluada:</strong> ${nombreEntidad}</p>
-                <p><strong>Resultado:</strong> ${estadoSeguridad}</p>
-                <p><strong>Cumplimiento General:</strong> ${porcentaje}% (${itemsCumplen} de ${itemsCumplen + itemsNoCumplen} ítems)</p>
+                <div class="resumen-info-compacto">
+                    <p><strong>Fecha de Evaluación:</strong> ${fechaDia}/${fechaMes}/${fechaAno}</p>
+                    <p><strong>Entidad Evaluada:</strong> ${nombreEntidad}</p>
+                    <p><strong>Resultado:</strong> ${estadoSeguridad}</p>
+                    <p><strong>Cumplimiento General:</strong> ${porcentaje}% (${itemsCumplen} de ${itemsCumplen + itemsNoCumplen} ítems)</p>
+                </div>
             `;
             
             // Añadir áreas problemáticas si existen
             if (areasProblematicas.length > 0) {
-                resumenHTML += `<p><strong>Áreas que requieren atención:</strong></p><ul>`;
+                resumenHTML += `<div class="areas-atencion">
+                    <h4>Áreas que requieren atención:</h4><ul>`;
                 
                 // Agrupar por sección
                 var seccionesAgrupadas = {};
@@ -724,7 +768,7 @@
                     resumenHTML += `</ul></li>`;
                 }
                 
-                resumenHTML += `</ul>`;
+                resumenHTML += `</ul></div>`;
             } else if (itemsCumplen + itemsNoCumplen > 0) {
                 resumenHTML += `<p><strong>¡Felicitaciones!</strong> Todos los ítems evaluados cumplen con los requisitos de seguridad.</p>`;
             } else {
@@ -807,31 +851,66 @@
                 div.parentNode.replaceChild(radio, div);
             }
 
-            // Inicializar con ejemplo de datos predefinidos (solo para demostración)
-            document.querySelector('input[name="nombre_entidad"]').value = "Hospital Regional San Felipe";
-            document.querySelector('input[name="dia"]').value = "02";
-            document.querySelector('input[name="mes"]').value = "04";
+            // Inicializar con ejemplo de datos predefinidos
+            document.querySelector('input[name="nombre_entidad"]').value = "CENTRO DE SALUD FAMILIAR (CESFAM) SAN JUAN";
+            document.querySelector('input[name="dia"]').value = "27";
+            document.querySelector('input[name="mes"]').value = "03";
             document.querySelector('input[name="ano"]').value = "25";
             
             // Marcar algunos items como ejemplo
-            var radios = document.querySelectorAll('input[type="radio"]');
-            // Esta parte es solo para simular los datos que enviaste (12 cumplen, 18 no cumplen)
-            for(var i = 0; i < 15; i++) {
+            // Esta parte es solo para simular los datos que se enviaron (12 cumplen, 18 no cumplen)
+            for(var i = 0; i < 30; i++) {
                 if(i < 12) {
-                    document.getElementsByName('item_' + i)[0].checked = true; // Cumple
+                    if (document.getElementsByName('item_' + i)[0]) {
+                        document.getElementsByName('item_' + i)[0].checked = true; // Cumple
+                    }
                 } else {
-                    document.getElementsByName('item_' + i)[1].checked = true; // No cumple
+                    if (document.getElementsByName('item_' + (i-12))[1]) {
+                        document.getElementsByName('item_' + (i-12))[1].checked = true; // No cumple
+                    }
                 }
             }
             
             // Actualizar conteo
             contarCumplimiento();
         };
+        
+        // Función para guardar como PDF
+        function guardarPDF() {
+            window.alert("Para guardar como PDF, utilice la opción de imprimir y seleccione 'Guardar como PDF' en las opciones de destino de su navegador.");
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        }
+        
+        // Función para mostrar la imagen seleccionada
+        function mostrarImagen(input, previewId) {
+            var preview = document.getElementById(previewId);
+            preview.innerHTML = '';
+            
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'foto-preview';
+                    preview.appendChild(img);
+                    
+                    // Ocultar el texto y el botón cuando hay una imagen
+                    var placeholder = input.parentElement;
+                    placeholder.querySelector('p').style.display = 'none';
+                    placeholder.querySelector('label').style.display = 'none';
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 </head>
 <body>
-    <div class="container">
-        <form id="formulario-fiscalizacion">
+   <div class="container">
+                         <form id="formulario-fiscalizacion">
             <h1>CUADRO DE FISCALIZACIÓN DE SEGURIDAD PRIVADA</h1>
             
             <div class="info-section">
@@ -881,7 +960,7 @@
 
             <h3>B. Empresa de Seguridad y Personal</h3>
             <table>
-              <tr class="header-row">
+                <tr class="header-row">
                     <th width="50%">Ítem a Fiscalizar</th>
                     <th class="check-column">Cumple</th>
                     <th class="check-column">No Cumple</th>
@@ -1194,39 +1273,5 @@
             </div>
         </form>
     </div>
-
-    <script>
-        // Función para guardar como PDF
-        function guardarPDF() {
-            window.alert("Para guardar como PDF, utilice la opción de imprimir y seleccione 'Guardar como PDF' en las opciones de destino de su navegador.");
-            setTimeout(function() {
-                window.print();
-            }, 500);
-        }
-        
-        // Función para mostrar la imagen seleccionada
-        function mostrarImagen(input, previewId) {
-            var preview = document.getElementById(previewId);
-            preview.innerHTML = '';
-            
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'foto-preview';
-                    preview.appendChild(img);
-                    
-                    // Ocultar el texto y el botón cuando hay una imagen
-                    var placeholder = input.parentElement;
-                    placeholder.querySelector('p').style.display = 'none';
-                    placeholder.querySelector('label').style.display = 'none';
-                };
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </body>
 </html>
