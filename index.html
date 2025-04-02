@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Los estilos permanecen iguales */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -661,7 +660,7 @@
                 padding: 12px;
             }
         }
-   </style>
+    </style>
     <script>
         function contarCumplimiento() {
             var totalItems = document.querySelectorAll('input[type="radio"][name^="item_"]').length / 2;
@@ -707,9 +706,7 @@
             
             // Generar resumen automático
             generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad);
-        }
-        
-        function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
+        }function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
             var resumenElement = document.getElementById('resumen-automatico');
             
             // Obtener la entidad y fecha
@@ -788,7 +785,11 @@
                 document.getElementById("formulario-fiscalizacion").reset();
                 contarCumplimiento();
                 
-                // Se ha eliminado el bloque que limpia los textareas de observaciones
+                // Limpiar campos de observaciones
+                var observaciones = document.querySelectorAll('td.observaciones textarea');
+                for (var i = 0; i < observaciones.length; i++) {
+                    observaciones[i].value = '';
+                }
                 
                 // Limpiar resumen automático
                 document.getElementById('resumen-automatico').innerHTML = '<p>El resumen detallado se generará automáticamente al completar la evaluación.</p>';
@@ -816,7 +817,17 @@
         }
         
         window.onload = function() {
-            // Se ha eliminado el código que añade textareas a las celdas de observaciones
+            // Añadir textareas a las celdas de observaciones (excluyendo los encabezados)
+            var observaciones = document.querySelectorAll('td.observaciones');  // Cambiado de .observaciones a td.observaciones
+            for (var i = 0; i < observaciones.length; i++) {
+                var textarea = document.createElement('textarea');
+                textarea.rows = 3;
+                textarea.style.minHeight = "70px";
+                textarea.style.width = "100%";
+                textarea.style.boxSizing = "border-box";
+                textarea.placeholder = "Ingrese sus observaciones aquí...";
+                observaciones[i].appendChild(textarea);
+            }
             
             // Convertir divs a radio buttons
             var checkboxes = document.querySelectorAll('td.check-column div.check-box');
@@ -942,6 +953,7 @@
                     <td class="observaciones"></td>
                 </tr>
             </table>
+
             <h3>B. Empresa de Seguridad y Personal</h3>
             <table>
                 <tr class="header-row">
