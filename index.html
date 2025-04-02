@@ -245,6 +245,7 @@
             background-color: #003366;
             color: white;
             font-weight: 500;
+            text-align: center; /* MODIFICADO: Centrar el texto en todos los encabezados */
         }
         
         tr:nth-child(even) {
@@ -258,13 +259,18 @@
         }
         
         .check-column {
-            width: 50px;
+            width: 80px; /* MODIFICADO: Aumentado de 50px a 80px para dar más espacio */
             text-align: center;
         }
         
         .observaciones {
             min-width: 350px;
             width: 40%;
+        }
+        
+        /* AÑADIDO: Ajustar el ancho de la columna de ítems */
+        tr.header-row th:first-child {
+            width: 45%; /* Ligeramente reducido para compensar el aumento en las columnas de check */
         }
         
         input[type="radio"] {
@@ -555,7 +561,7 @@
             }
             
             .check-column {
-                width: 40px;
+                width: 60px; /* Ajustado para dispositivos móviles */
             }
             
             .info-section {
@@ -706,7 +712,8 @@
             
             // Generar resumen automático
             generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad);
-        }function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
+        }
+        function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
             var resumenElement = document.getElementById('resumen-automatico');
             
             // Obtener la entidad y fecha
@@ -818,7 +825,7 @@
         
         window.onload = function() {
             // Añadir textareas a las celdas de observaciones (excluyendo los encabezados)
-            var observaciones = document.querySelectorAll('td.observaciones');  // Cambiado de .observaciones a td.observaciones
+            var observaciones = document.querySelectorAll('td.observaciones');
             for (var i = 0; i < observaciones.length; i++) {
                 var textarea = document.createElement('textarea');
                 textarea.rows = 3;
@@ -929,9 +936,9 @@
             <h3>A. Directiva de Funcionamiento</h3>
             <table>
                 <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
+                    <th width="45%">Ítem a Fiscalizar</th>
+                    <th class="check-column" width="80px">Cumple</th>
+                    <th class="check-column" width="80px">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
                 <tr>
@@ -957,9 +964,9 @@
             <h3>B. Empresa de Seguridad y Personal</h3>
             <table>
                 <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
+                    <th width="45%">Ítem a Fiscalizar</th>
+                    <th class="check-column" width="80px">Cumple</th>
+                    <th class="check-column" width="80px">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
                 <tr>
@@ -988,9 +995,9 @@
             <h3>A. Guardias de Seguridad</h3>
             <table>
                 <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
+                    <th width="45%">Ítem a Fiscalizar</th>
+                    <th class="check-column" width="80px">Cumple</th>
+                    <th class="check-column" width="80px">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
                 <tr>
@@ -1022,9 +1029,9 @@
             <h3>B. Dotación y Turnos</h3>
             <table>
                 <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
+                    <th width="45%">Ítem a Fiscalizar</th>
+                    <th class="check-column" width="80px">Cumple</th>
+                    <th class="check-column" width="80px">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
                 <tr>
@@ -1065,9 +1072,9 @@
             <h3>A. Uniformes</h3>
             <table>
                 <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
+                    <th width="45%">Ítem a Fiscalizar</th>
+                    <th class="check-column" width="80px">Cumple</th>
+                    <th class="check-column" width="80px">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
                 <tr>
@@ -1117,9 +1124,9 @@
             <h3>B. Implementos de Seguridad</h3>
             <table>
                 <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
+                    <th width="45%">Ítem a Fiscalizar</th>
+                    <th class="check-column" width="80px">Cumple</th>
+                    <th class="check-column" width="80px">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
                 <tr>
@@ -1148,9 +1155,9 @@
             <h3>A. Circuito Cerrado de Televisión (CCTV)</h3>
             <table>
                 <tr class="header-row">
-                    <th width="50%">Ítem a Fiscalizar</th>
-                    <th class="check-column">Cumple</th>
-                    <th class="check-column">No Cumple</th>
+                    <th width="45%">Ítem a Fiscalizar</th>
+                    <th class="check-column" width="80px">Cumple</th>
+                    <th class="check-column" width="80px">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
                 <tr>
