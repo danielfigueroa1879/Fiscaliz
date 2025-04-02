@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Cuadro de Fiscalización de Seguridad Privada</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -118,6 +117,7 @@
         
         table {
             width: 100%;
+            table-layout: fixed;
             border-collapse: collapse;
             margin-bottom: 30px;
             font-size: 1rem;
@@ -131,6 +131,7 @@
             padding: 15px;
             text-align: left;
             vertical-align: top;
+            word-wrap: break-word;
         }
         
         th {
@@ -150,12 +151,13 @@
         }
         
         .check-column {
-            width: 70px;
+            width: 60px;
             text-align: center;
         }
         
         .observaciones {
-            min-width: 200px;
+            min-width: 300px;
+            width: 30%;
         }
         
         input[type="radio"] {
@@ -221,6 +223,7 @@
         
         textarea {
             width: 100%;
+            min-height: 80px;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -316,54 +319,71 @@
             }
         }
         
-        /* Estilos responsivos para móviles */
+        /* Estilos responsivos para dispositivos móviles y pantallas pequeñas */
         @media screen and (max-width: 768px) {
             .container {
-                padding: 15px;
+                padding: 10px;
+                width: 100%;
+                max-width: 100%;
             }
             
             body {
-                font-size: 16px;
+                font-size: 14px;
+                padding: 0;
+                margin: 0;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+                margin-bottom: 15px;
             }
             
             h2 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
+                margin-top: 20px;
             }
             
             h3 {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
+                margin-top: 15px;
             }
             
-            /* Mejoras para visualización en móviles */
+            /* Hacer la tabla responsive */
             table {
                 display: block;
                 overflow-x: auto;
-                white-space: nowrap;
+                white-space: normal;
                 box-shadow: none;
                 font-size: 0.9rem;
+                width: 100%;
             }
             
-            input[type="radio"] {
-                width: 28px;
-                height: 28px;
-            }
-            
-            .check-column {
-                width: 55px;
+            th, td {
+                padding: 10px;
             }
             
             .observaciones {
-                min-width: 140px;
+                min-width: 200px;
+                width: auto;
+            }
+            
+            input[type="radio"] {
+                width: 25px;
+                height: 25px;
+            }
+            
+            .check-column {
+                width: 50px;
+            }
+            
+            .info-section {
+                padding: 15px;
             }
             
             .info-section p {
-                font-size: 1rem;
                 flex-direction: column;
                 align-items: flex-start;
+                margin: 10px 0;
             }
             
             .info-section p strong {
@@ -371,8 +391,92 @@
                 margin-bottom: 5px;
             }
             
+            .info-section input {
+                width: 100%;
+            }
+            
             .fecha-inputs {
                 width: 100%;
+                max-width: 200px;
+            }
+            
+            .summary {
+                padding: 15px;
+            }
+            
+            .result {
+                padding: 15px;
+                font-size: 1.2rem;
+            }
+            
+            .count {
+                font-size: 0.9rem;
+            }
+            
+            .firmas-seccion {
+                flex-direction: column;
+            }
+            
+            .firma-bloque {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .botones {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            button {
+                width: 100%;
+                max-width: 250px;
+                margin: 10px 0;
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            textarea {
+                min-height: 60px;
+            }
+        }
+        
+        /* Ajustes específicos para dispositivos muy pequeños */
+        @media screen and (max-width: 480px) {
+            body {
+                font-size: 13px;
+            }
+            
+            .container {
+                padding: 8px;
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+            
+            input[type="radio"] {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .observaciones {
+                min-width: 150px;
+            }
+            
+            .info-section, .summary {
+                padding: 12px;
             }
         }
     </style>
@@ -513,7 +617,9 @@
             var observaciones = document.querySelectorAll('.observaciones');
             for (var i = 0; i < observaciones.length; i++) {
                 var textarea = document.createElement('textarea');
-                textarea.rows = 2;
+                textarea.rows = 3;
+                textarea.style.minHeight = "80px";
+                textarea.placeholder = "Ingrese sus observaciones aquí...";
                 observaciones[i].appendChild(textarea);
             }
             
@@ -755,7 +861,7 @@
                     <th class="check-column">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
-              <tr>
+                <tr>
                     <td>Elementos defensivos autorizados (D.32 del 2024)</td>
                     <td class="check-column"><div class="check-box"></div></td>
                     <td class="check-column"><div class="check-box"></div></td>
@@ -835,7 +941,7 @@
                 </div>
                 
                 <h3>Recomendaciones y Plan de Acción</h3>
-                <textarea id="plan-accion" rows="5" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
+                <textarea id="plan-accion" rows="8" style="min-height: 150px;" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
                 
                 <h3>Firmas</h3>
                 <div class="firmas-seccion">
@@ -855,6 +961,7 @@
             <div class="botones no-print">
                 <button type="button" onclick="imprimirFormulario()">Imprimir Formulario</button>
                 <button type="button" onclick="limpiarFormulario()">Limpiar Formulario</button>
+                <button type="button" onclick="guardarPDF()">Guardar como PDF</button>
             </div>
             
             <div class="footer">
@@ -863,5 +970,15 @@
             </div>
         </form>
     </div>
+
+    <script>
+        // Función para guardar como PDF
+        function guardarPDF() {
+            window.alert("Para guardar como PDF, utilice la opción de imprimir y seleccione 'Guardar como PDF' en las opciones de destino de su navegador.");
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        }
+    </script>
 </body>
 </html>
