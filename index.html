@@ -28,6 +28,19 @@
             border: 1px solid #ddd;
         }
         
+        .resumen-seccion li {
+            margin-bottom: 8px;
+        }
+        
+        .resumen-seccion ul ul li {
+            color: #a94442;
+        }
+        
+        .resumen-seccion ul ul li strong {
+            font-weight: 700;
+            color: #a94442;
+        }
+        
         .firmas-seccion {
             display: flex;
             justify-content: space-between;
@@ -666,7 +679,7 @@
                 for (var seccion in seccionesAgrupadas) {
                     resumenHTML += `<li><strong>${seccion}</strong><ul>`;
                     seccionesAgrupadas[seccion].forEach(function(item) {
-                        resumenHTML += `<li>${item}</li>`;
+                        resumenHTML += `<li><strong>NO CUMPLE:</strong> ${item}</li>`;
                     });
                     resumenHTML += `</ul></li>`;
                 }
@@ -974,7 +987,7 @@
                     <th class="check-column">No Cumple</th>
                     <th class="observaciones">Observaciones</th>
                 </tr>
-                <tr>
+               <tr>
                     <td>Elementos disuasivos autorizados (D.32 del 2024)</td>
                     <td class="check-column"><div class="check-box"></div></td>
                     <td class="check-column"><div class="check-box"></div></td>
