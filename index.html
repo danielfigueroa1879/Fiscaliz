@@ -165,6 +165,13 @@
             padding-bottom: 8px;
             font-size: 1.7rem;
             font-weight: 600;
+            clear: both;
+            page-break-before: auto;
+        }
+        
+        h2.page-title {
+            page-break-before: always;
+            margin-top: 20px;
         }
         
         h3 {
@@ -387,6 +394,10 @@
                 margin-top: 20px;
             }
             
+            h2.page-title {
+                page-break-before: always;
+            }
+            
             h3 {
                 font-size: 1.3rem;
             }
@@ -418,6 +429,10 @@
             
             .count {
                 font-size: 1rem;
+            }
+            
+            .page-break {
+                page-break-before: always;
             }
         }
         
@@ -1051,6 +1066,16 @@
                 </tr>
             </table>
 
+            <div class="botones no-print">
+                <button type="button" onclick="imprimirFormulario()">Imprimir Formulario</button>
+                <button type="button" onclick="limpiarFormulario()">Limpiar Formulario</button>
+                <button type="button" onclick="guardarPDF()">Guardar como PDF</button>
+            </div>
+            
+            <div class="page-break"></div>
+            
+            <h2 class="page-title">RESUMEN DE FISCALIZACIÓN</h2>
+            
             <div class="summary">
                 <h3>Resultados de la Fiscalización</h3>
                 <div class="count">
@@ -1082,7 +1107,7 @@
             
             <div class="page-break"></div>
             
-            <h2>SET FOTOGRÁFICO</h2>
+            <h2 class="page-title">SET FOTOGRÁFICO</h2>
             
             <div class="set-fotografico">
                 <div class="foto-container">
@@ -1118,7 +1143,7 @@
             
             <div class="footer">
                 <p>Realizado según normativa vigente de seguridad privada en establecimientos de salud.</p>
-                <p>© 2025 - Daniel Figueroa Ch.</p>
+                <p>© 2025 - Dirección de Seguridad Hospitalaria</p>
             </div>
         </form>
     </div>
