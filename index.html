@@ -914,21 +914,55 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
-                var planAccion = document.getElementById('plan-accion');
-            if (planAccion) {
-        // Establece un mínimo inicial
-        planAccion.style.minHeight = '200px';
+function initAutoResizeTextarea() {
+    // Obtener el textarea
+    const textarea = document.getElementById('plan-accion');
+    if (!textarea) return;
+    
+    // Configuración inicial
+    textarea.style.overflow = 'hidden';
+    textarea.style.minHeight = '200px';
+    textarea.style.fontSize = '1.2rem';
+    textarea.style.lineHeight = '1.5';
+    
+    // Función para redimensionar
+    function resize() {
+        // Guarda la posición del scroll
+        const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
         
-        // Configura el evento input para redimensionar
-        planAccion.addEventListener('input', function() {
-            autoResize(this);
-        });
+        // Reset de altura para obtener la correcta
+        textarea.style.height = 'auto';
         
-        // Inicializa
-        autoResize(planAccion);
+        // Establece la nueva altura
+        const newHeight = textarea.scrollHeight + 2; // +2 para evitar el parpadeo
+        textarea.style.height = newHeight + 'px';
+        
+        // Restaura la posición del scroll
+        window.scrollTo(0, scrollPos);
     }
-};
+    
+    // Inicializar
+    resize();
+    
+    // Agregar eventos (múltiples eventos para mayor compatibilidad)
+    const events = ['input', 'keyup', 'keydown', 'change', 'paste', 'cut', 'focus'];
+    events.forEach(event => {
+        textarea.addEventListener(event, function() {
+            // Usar setTimeout para asegurar que el contenido se ha actualizado
+            setTimeout(resize, 0);
+        });
+    });
+    
+    // Asegurar que funciona después de cambios en la ventana
+    window.addEventListener('resize', resize);
+}
+
+// Asegurarse de que se ejecute cuando la página esté cargada
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(initAutoResizeTextarea, 1);
+} else {
+    document.addEventListener('DOMContentLoaded', initAutoResizeTextarea);
+}
     </script>
 </head>
 <body>
@@ -1242,7 +1276,8 @@
                 </div>
                 
                 <h3>Recomendaciones y Plan de Acción</h3>
-                <textarea id="plan-accion" style="overflow: hidden; min-height: 200px; font-size: 1.2rem; line-height: 1.5;" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
+            <!-- Y reemplázala por esta versión más simple: -->
+<textarea id="plan-accion" placeholder="Ingrese las recomendaciones específicas y el plan de acción propuesto..."></textarea>
                 
                 <h3>Firmas</h3>
                 <div class="firmas-seccion">
