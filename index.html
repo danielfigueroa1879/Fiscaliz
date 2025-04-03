@@ -7,112 +7,240 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>/* Estilos generales con letra más grande para visualización en pantalla, botones sin cambios */
+    <style>
         body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-    font-size: 20px; /* Aumentado de 18px */
-    color: #333;
-    line-height: 1.6;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.container {
-    width: 100%;
-    margin: 0 auto;
-    padding: 25px; /* Aumentado de 20px */
-    background-color: #fff;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-}
-
-h1 {
-    text-align: center;
-    color: #003366;
-    margin-bottom: 35px; /* Aumentado de 30px */
-    font-size: 2.4rem; /* Aumentado de 2.2rem */
-    font-weight: 600;
-}
-
-h2 {
-    color: #003366;
-    margin-top: 40px; /* Aumentado de 35px */
-    margin-bottom: 18px; /* Aumentado de 15px */
-    border-bottom: 2px solid #003366;
-    padding-bottom: 10px; /* Aumentado de 8px */
-    font-size: 1.9rem; /* Aumentado de 1.7rem */
-    font-weight: 600;
-    clear: both;
-}
-
-h3 {
-    color: #006699;
-    margin-top: 30px; /* Aumentado de 25px */
-    margin-bottom: 15px; /* Aumentado de 12px */
-    font-size: 1.6rem; /* Aumentado de 1.4rem */
-    font-weight: 500;
-}
-
-.info-section {
-    background-color: #f9f9f9;
-    padding: 30px; /* Aumentado de 25px */
-    border-radius: 10px;
-    margin-bottom: 35px; /* Aumentado de 30px */
-}
-
-.info-section p {
-    margin: 15px 0; /* Aumentado de 12px */
-    font-size: 1.2rem; /* Aumentado de 1.1rem */
-    display: flex;
-    align-items: center;
-}
-
-.info-section p strong {
-    display: inline-block;
-    width: 260px; /* Aumentado de 240px */
-}
-
-.info-section input {
-    flex: 1;
-    padding: 10px; /* Aumentado de 8px */
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem; /* Aumentado de 1.1rem */
-}
-
-.fecha-inputs {
-    display: flex;
-    gap: 6px; /* Aumentado de 5px */
-}
-
-.fecha-inputs input {
-    width: 45px; /* Aumentado de 40px */
-    text-align: center;
-}
-
-table {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-    margin-bottom: 30px; /* Aumentado de 25px */
-    font-size: 1.1rem; /* Aumentado de 0.95rem */
-    border-radius: 10px;
-    overflow: visible;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 14px; /* Aumentado de 12px */
-    text-align: left;
-    vertical-align: top;
-    word-wrap: break-word;
-    font-size: 1.1rem; /* Aumentado de 0.95rem */
-}
-
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .resumen-seccion {
+            background-color: #f2f2f2;
+            padding: 17px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .resumen-seccion li {
+            margin-bottom: 10px;
+        }
+        
+        .resumen-seccion ul ul li {
+            color: #333;
+        }
+        
+        .no-cumple-tag {
+            font-weight: 700;
+            color: #ff0000;
+            margin-left: 5px;
+            font-size: 0.85rem;
+        }
+        
+        .firmas-seccion {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .firma-bloque {
+            width: 300px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        
+        .set-fotografico {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .foto-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .foto-marco {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .foto-placeholder {
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .foto-placeholder p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .foto-input {
+            display: none;
+        }
+        
+        .foto-label {
+            background-color: #003366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .foto-label:hover {
+            background-color: #004080;
+        }
+        
+        .foto-descripcion {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .preview-imagen {
+            width: 100%;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .foto-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .linea-firma {
+            height: 1px;
+            background-color: #000;
+            margin: 40px 0 10px 0;
+        }
+        
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        
+        h2 {
+            color: #003366;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #003366;
+            padding-bottom: 8px;
+            font-size: 1.7rem;
+            font-weight: 600;
+            clear: both;
+            page-break-before: auto;
+        }
+        
+        h2.page-title {
+            page-break-before: always;
+            margin-top: 20px;
+        }
+        
+        h3 {
+            color: #006699;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+        
+        .info-section {
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .info-section p {
+            margin: 12px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-section p strong {
+            display: inline-block;
+            width: 240px;
+        }
+        
+        .info-section input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+        }
+        
+        .fecha-inputs {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .fecha-inputs input {
+            width: 40px;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            border-radius: 10px;
+            overflow: visible;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word;
+            font-size: 0.95rem;
+        }
+        
         th {
             background-color: #003366;
             color: white;
@@ -258,26 +386,23 @@ th, td {
             margin-bottom: 20px;
         }
         
-        /* Estilos para hacer el texto de resultados más pequeño */
-.resultados-compacto h3 {
-    font-size: 1.4rem; /* Reducido */
-    margin-bottom: 8px;
-}
-
-.resultados-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 13px;
-    margin-bottom: 13px;
-}
-
-.resultados-info p {
-    margin: 0;
-    flex: 1 1 45%;
-    min-width: 180px;
-    font-size: 1.2rem !important; /* Reducido considerablemente */
-}
-
+        .resultados-compacto h3 {
+            margin-bottom: 10px;
+        }
+        
+        .resultados-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .resultados-info p {
+            margin: 0;
+            flex: 1 1 45%;
+            min-width: 200px;
+        }
+        
         /* Nuevos estilos para hacer el resumen más compacto */
         .resumen-info-compacto {
             display: flex;
@@ -446,210 +571,134 @@ th, td {
             margin-top: 10px;
             margin-bottom: 5px;
         }
-/* Estilos para agrandar los encabezados de las tablas */
-table tr.header-row th {
-    font-size: 1.2rem !important; /* Texto considerablemente más grande */
-    font-weight: 600; /* Un poco más grueso */
-    padding: 16px 12px; /* Aumentar el espaciado vertical */
-    text-align: center; /* Centrado para mejor apariencia */
-    line-height: 1.4; /* Mejor espaciado entre líneas */
-}
 
-/* Específicamente para el encabezado de Ítem a Fiscalizar */
-tr.header-row th:first-child {
-    text-align: Center; /* Alineación a la izquierda para la columna de ítems */
-}
-
-/* Para impresión */
-@media print {
-    table tr.header-row th {
-        font-size: 14px !important; /* Más grande que otros textos en impresión */
-        font-weight: bold;
-        padding: 8px 6px;
-    }
-}
-
-
+        /* Estilos mejorados para impresión - soluciona hojas en blanco */
+        @media print {
+            body {
+                background-color: white;
+                font-size: 12px; /* Reducido para mejor ajuste en papel */
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .container {
+                width: 100%;
+                padding: 10px;
+                box-shadow: none;
+                margin: 0;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                page-break-before: auto; /* Evita saltos de página automáticos */
+            }
+            
+            h2.page-title {
+                page-break-before: auto; /* Cambiado de 'always' a 'auto' */
+            }
+            
+            /* Control explícito de saltos de página */
+            .forced-page-break {
+                page-break-before: always;
+                height: 0;
+                margin: 0;
+                padding: 0;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+                margin-top: 15px;
+                margin-bottom: 8px;
+            }
+            
+            table {
+                font-size: 10px; /* Texto más pequeño en tablas para evitar saltos */
+                page-break-inside: avoid;
+                margin-bottom: 15px;
+            }
+            
+            th, td {
+                padding: 6px;
+            }
+            
+            .info-section {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .summary {
+                padding: 10px;
+                margin-top: 20px;
+            }
+            
+            .result {
+                padding: 10px;
+                margin-top: 15px;
+            }
+            
+            button, .no-print {
+                display: none;
+            }
+            
+            .count {
+                font-size: 0.9rem;
+            }
+            
+            /* Ajustes para el resumen */
+            #resumen-automatico {
+                font-size: 10px !important;
+                line-height: 1.3 !important;
+            }
+            
+            #resumen-automatico strong {
+                font-size: 10px !important;
+            }
+            
+            #resumen-automatico ul li, 
+            #resumen-automatico ul ul li {
+                font-size: 10px !important;
+            }
+            
+            .no-cumple-tag {
+                font-size: 9px !important;
+            }
+            
+            /* Ajustes para la sección de fotografías */
+            .foto-marco {
+                min-height: 150px;
+                border: 1px dashed #999;
+            }
+            
+            .foto-descripcion {
+                min-height: 50px;
+            }
+            
+            /* Reducir márgenes y espaciados */
+            .resultados-compacto, .resumen-seccion {
+                margin: 10px 0;
+                padding: 10px;
+            }
+            
+            /* Evitar que elementos queden cortados entre páginas */
+            .foto-container, .firma-bloque, .rich-text-container {
+                page-break-inside: avoid;
+            }
+            
+            /* Solución específica para las páginas 5 y 7 */
+            /* Controlar explícitamente dónde ocurren los saltos de página */
+            #seccion-uniformes, #seccion-resumen, #seccion-fotos {
+                page-break-before: always;
+            }
+        }
         
-    /* Estilos mejorados para impresión - tamaño MUCHO más grande y proporcional */
-@media print {
-    body {
-        background-color: white;
-        font-size: 16px; /* Aumentado significativamente de 13px */
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .container {
-        width: 100%;
-        padding: 10px;
-        box-shadow: none;
-        margin: 0;
-    }
-    
-    h1 {
-        font-size: 24px; /* Aumentado de 20px */
-        margin-bottom: 16px;
-        font-weight: bold;
-    }
-    
-    h2 {
-        font-size: 22px; /* Aumentado de 18px */
-        margin-top: 16px;
-        margin-bottom: 12px;
-        page-break-before: auto;
-        font-weight: bold;
-    }
-    
-    h3 {
-        font-size: 20px; /* Aumentado de 16px */
-        margin-top: 14px;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-    
-    /* Control explícito de saltos de página */
-    .forced-page-break {
-        page-break-before: always;
-        height: 0;
-        margin: 0;
-        padding: 0;
-    }
-    
-    table {
-        font-size: 15px; /* Aumentado de 12px */
-        page-break-inside: avoid;
-        margin-bottom: 16px;
-    }
-    
-    th, td {
-        padding: 8px; /* Aumentado de 6px */
-    }
-    
-    .info-section {
-        padding: 12px;
-        margin-bottom: 16px;
-    }
-    
-    .info-section p {
-        font-size: 16px;
-    }
-    
-    .summary {
-        padding: 16px;
-        margin-top: 20px;
-    }
-    
-    .result {
-        padding: 15px;
-        margin-top: 16px;
-        font-size: 22px; /* Aumentado de 17px */
-    }
-    
-    button, .no-print {
-        display: none;
-    }
-    
-    /* Ajustes específicos para el resumen - AUMENTADO TAMAÑO MUCHO MÁS */
-    #resumen-automatico {
-        font-size: 17px !important; /* Aumentado significativamente de 13.5px */
-        line-height: 1.5 !important;
-    }
-    
-    #resumen-automatico strong {
-        font-size: 17px !important; /* Mismo tamaño para consistencia */
-        font-weight: bold;
-    }
-    
-    #resumen-automatico p {
-        margin: 6px 0;
-    }
-    
-    #resumen-automatico ul {
-        margin: 6px 0;
-        padding-left: 22px;
-    }
-    
-    #resumen-automatico ul li {
-        font-size: 17px !important; /* Consistente */
-        margin-bottom: 5px;
-    }
-    
-    #resumen-automatico ul ul {
-        margin: 5px 0;
-        padding-left: 18px;
-    }
-    
-    #resumen-automatico ul ul li {
-        font-size: 17px !important; /* Consistente */
-        margin-bottom: 4px;
-        line-height: 1.4;
-    }
-    
-    .no-cumple-tag {
-        font-size: 16px !important; /* Aumentado de 12px */
-        font-weight: bold;
-    }
-    
-    /* Mejorar visualización de listas en impresión */
-    .resumen-info-compacto {
-        margin-bottom: 10px;
-    }
-    
-    .resumen-info-compacto p {
-        margin: 5px 0;
-        font-size: 17px !important; /* Aumentado de 13.5px */
-    }
-    
-    .areas-atencion h4 {
-        font-size: 18px !important; /* Aumentado de 14px */
-        margin: 12px 0 6px 0;
-        font-weight: bold;
-    }
-    
-    /* Ajustes para fotografías */
-    .foto-marco {
-        min-height: 160px; /* Ligeramente más grande */
-        border: 1px dashed #999;
-    }
-    
-    .foto-descripcion {
-        min-height: 60px;
-        font-size: 16px;
-    }
-    
-    /* Reducir márgenes y espaciados */
-    .resultados-compacto, .resumen-seccion {
-        margin: 14px 0;
-        padding: 14px;
-    }
-    
-    /* Evitar que elementos queden cortados entre páginas */
-    .foto-container, .firma-bloque, .rich-text-container {
-        page-break-inside: avoid;
-    }
-    
-    /* Solución específica para saltos de página */
-    #seccion-uniformes, #seccion-resumen, #seccion-fotos {
-        page-break-before: always;
-    }
-    
-    /* Para la tabla de resultados */
-    .resultados-info {
-        margin-bottom: 12px;
-    }
-    
-    .resultados-info p {
-        font-size: 17px; /* Aumentado de 13.5px */
-        margin: 4px 0;
-    }
-    
-    /* Ajustes para la sección de firmas */
-    .firma-bloque p {
-        font-size: 16px;
-    }
-}
         /* Estilos responsivos para dispositivos móviles y pantallas pequeñas */
         @media screen and (max-width: 768px) {
             .container {
@@ -1573,7 +1622,7 @@ tr.header-row th:first-child {
             </div>
             
             <div class="footer">
-                <p>Realizado según normativa vigente de seguridad privada.</p>
+                <p>Realizado según normativa vigente de seguridad privada en establecimientos de salud.</p>
                 <p>© 2025 - Daniel Figueroa Ch. Ing. Informática</p>
             </div>
         </form>
