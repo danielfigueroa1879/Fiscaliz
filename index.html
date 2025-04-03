@@ -372,8 +372,11 @@
             margin-top: 30px;
         }
         
-        .page-break {
+        .forced-page-break {
             page-break-before: always;
+            height: 0;
+            margin: 0;
+            padding: 0;
         }
         
         /* Nuevos estilos para el formato de resultados */
@@ -506,11 +509,74 @@
           margin: 0 0 10px 0;
         }
         
-        /* Estilos para impresión */
+        /* Estilos para el resumen automático - TAMAÑO MÁS PEQUEÑO */
+        #resumen-automatico {
+            font-size: 1.05rem; /* Reducido */
+            line-height: 1.4; /* Espaciado entre líneas ligeramente reducido */
+        }
+
+        #resumen-automatico strong {
+            font-size: 1.1rem; /* Reducido */
+        }
+
+        /* Para los elementos de la lista principal */
+        #resumen-automatico ul {
+            margin: 6px 0;
+            padding-left: 18px; 
+        }
+
+        #resumen-automatico ul li {
+            margin-bottom: 5px;
+            font-size: 1.05rem; /* Reducido */
+        }
+
+        /* Para las sublistas (los items que no cumplen) */
+        #resumen-automatico ul ul {
+            margin: 5px 0;
+            padding-left: 15px;
+        }
+
+        #resumen-automatico ul ul li {
+            margin-bottom: 3px;
+            font-size: 1rem; /* Tamaño estándar */
+            line-height: 1.35;
+        }
+
+        /* Para la etiqueta NO CUMPLE */
+        #resumen-automatico .no-cumple-tag {
+            font-weight: 700;
+            color: #ff0000;
+            margin-left: 5px;
+            font-size: 0.9rem; /* Reducido */
+        }
+
+        /* Ajustes para la información compacta al inicio */
+        #resumen-automatico .resumen-info-compacto {
+            margin-bottom: 10px;
+        }
+
+        #resumen-automatico .resumen-info-compacto p {
+            font-size: 1.05rem; /* Reducido */
+            margin: 3px 0;
+        }
+
+        /* Hacer los títulos de sección más pequeños */
+        #resumen-automatico ul li strong {
+            font-size: 1.1rem; /* Reducido */
+        }
+
+        /* Ajustar el espacio entre secciones */
+        #resumen-automatico .areas-atencion h4 {
+            font-size: 1.1rem; /* Reducido */
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        /* Estilos mejorados para impresión - soluciona hojas en blanco */
         @media print {
             body {
                 background-color: white;
-                font-size: 14px;
+                font-size: 12px; /* Reducido para mejor ajuste en papel */
                 width: 100%;
                 margin: 0;
                 padding: 0;
@@ -520,44 +586,62 @@
                 width: 100%;
                 padding: 10px;
                 box-shadow: none;
+                margin: 0;
             }
             
             h1 {
-                font-size: 1.8rem;
+                font-size: 1.6rem;
+                margin-bottom: 20px;
             }
             
             h2 {
-                font-size: 1.5rem;
-                margin-top: 20px;
+                font-size: 1.3rem;
+                margin-top: 15px;
+                margin-bottom: 10px;
+                page-break-before: auto; /* Evita saltos de página automáticos */
             }
             
             h2.page-title {
+                page-break-before: auto; /* Cambiado de 'always' a 'auto' */
+            }
+            
+            /* Control explícito de saltos de página */
+            .forced-page-break {
                 page-break-before: always;
+                height: 0;
+                margin: 0;
+                padding: 0;
             }
             
             h3 {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
+                margin-top: 15px;
+                margin-bottom: 8px;
             }
             
             table {
-                font-size: 0.9rem;
+                font-size: 10px; /* Texto más pequeño en tablas para evitar saltos */
                 page-break-inside: avoid;
+                margin-bottom: 15px;
             }
             
             th, td {
-                padding:, 10px;
+                padding: 6px;
             }
             
             .info-section {
-                padding: 15px;
+                padding: 10px;
+                margin-bottom: 15px;
             }
             
             .summary {
-                padding: 15px;
+                padding: 10px;
+                margin-top: 20px;
             }
             
             .result {
-                padding: 15px;
+                padding: 10px;
+                margin-top: 15px;
             }
             
             button, .no-print {
@@ -565,10 +649,52 @@
             }
             
             .count {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             
-            .page-break {
+            /* Ajustes para el resumen */
+            #resumen-automatico {
+                font-size: 10px !important;
+                line-height: 1.3 !important;
+            }
+            
+            #resumen-automatico strong {
+                font-size: 10px !important;
+            }
+            
+            #resumen-automatico ul li, 
+            #resumen-automatico ul ul li {
+                font-size: 10px !important;
+            }
+            
+            .no-cumple-tag {
+                font-size: 9px !important;
+            }
+            
+            /* Ajustes para la sección de fotografías */
+            .foto-marco {
+                min-height: 150px;
+                border: 1px dashed #999;
+            }
+            
+            .foto-descripcion {
+                min-height: 50px;
+            }
+            
+            /* Reducir márgenes y espaciados */
+            .resultados-compacto, .resumen-seccion {
+                margin: 10px 0;
+                padding: 10px;
+            }
+            
+            /* Evitar que elementos queden cortados entre páginas */
+            .foto-container, .firma-bloque, .rich-text-container {
+                page-break-inside: avoid;
+            }
+            
+            /* Solución específica para las páginas 5 y 7 */
+            /* Controlar explícitamente dónde ocurren los saltos de página */
+            #seccion-uniformes, #seccion-resumen, #seccion-fotos {
                 page-break-before: always;
             }
         }
@@ -695,33 +821,69 @@
         
         /* Ajustes específicos para dispositivos muy pequeños */
         @media screen and (max-width: 480px) {
+            /* Ajustes específicos para móviles pequeños */
+            .container {
+                padding: 5px; /* Reduce padding para optimizar espacio */
+            }
+            
             body {
                 font-size: 13px;
             }
             
-            .container {
-                padding: 8px;
-            }
-            
             h1 {
-                font-size: 1.3rem;
+                font-size: 1.2rem; /* Título principal más pequeño */
             }
             
             h2 {
-                font-size: 1.2rem;
-            }
-            
-            h3 {
                 font-size: 1.1rem;
             }
             
-            th, td {
-                padding: 8px;
+            h3 {
+                font-size: 1rem;
             }
             
+            /* Hacer las tablas más compactas */
+            table {
+                font-size: 0.85rem;
+            }
+            
+            th, td {
+                padding: 6px;
+            }
+            
+            /* Mejorar visualización de radios */
             input[type="radio"] {
-                width: 22px;
-                height: 22px;
+                width: 20px;
+                height: 20px;
+                margin: 0 auto;
+                display: block;
+            }
+            
+            .check-column {
+                width: 40px; /* Reducir para móviles */
+            }
+            
+            /* Mejorar sección de resultados */
+            .resultados-info p {
+                font-size: 0.9rem;
+                margin: 5px 0;
+            }
+            
+            /* Ajustar botones */
+            button {
+                font-size: 0.9rem;
+                padding: 10px;
+                margin: 5px 0;
+            }
+            
+            /* Reducir tamaño del resumen en móviles */
+            #resumen-automatico {
+                font-size: 0.9rem !important;
+            }
+            
+            #resumen-automatico ul li, 
+            #resumen-automatico ul ul li {
+                font-size: 0.9rem !important;
             }
             
             .observaciones {
@@ -732,418 +894,355 @@
                 padding: 12px;
             }
         }
-
-    /* Estilos para el resumen automático - TAMAÑO MÁS PEQUEÑO */
-#resumen-automatico {
-    font-size: 1.05rem; /* Reducido aún más */
-    line-height: 1.4; /* Espaciado entre líneas ligeramente reducido */
-}
-
-#resumen-automatico strong {
-    font-size: 1.1rem; /* Reducido aún más */
-}
-
-/* Para los elementos de la lista principal */
-#resumen-automatico ul {
-    margin: 6px 0;
-    padding-left: 18px; 
-}
-
-#resumen-automatico ul li {
-    margin-bottom: 5px;
-    font-size: 1.05rem; /* Reducido aún más */
-}
-
-/* Para las sublistas (los items que no cumplen) */
-#resumen-automatico ul ul {
-    margin: 5px 0;
-    padding-left: 15px;
-}
-
-#resumen-automatico ul ul li {
-    margin-bottom: 3px;
-    font-size: 1rem; /* Tamaño estándar */
-    line-height: 1.35;
-}
-
-/* Para la etiqueta NO CUMPLE */
-#resumen-automatico .no-cumple-tag {
-    font-weight: 700;
-    color: #ff0000;
-    margin-left: 5px;
-    font-size: 0.9rem; /* Reducido aún más */
-}
-
-/* Ajustes para la información compacta al inicio */
-#resumen-automatico .resumen-info-compacto {
-    margin-bottom: 10px;
-}
-
-#resumen-automatico .resumen-info-compacto p {
-    font-size: 1.05rem; /* Reducido aún más */
-    margin: 3px 0;
-}
-
-/* Hacer los títulos de sección más pequeños */
-#resumen-automatico ul li strong {
-    font-size: 1.1rem; /* Reducido aún más */
-}
-
-/* Ajustar el espacio entre secciones */
-#resumen-automatico .areas-atencion h4 {
-    font-size: 1.1rem; /* Reducido aún más */
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
     </style>
 </head>
-                              
-     <script>
-        function contarCumplimiento() {
-            var totalItems = document.querySelectorAll('input[type="radio"][name^="item_"]').length / 2;
-            var itemsCumplen = document.querySelectorAll('input[type="radio"][value="cumple"]:checked').length;
-            var itemsNoCumplen = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked').length;
-            
-            document.getElementById('total-items').textContent = totalItems;
-            document.getElementById('items-cumplen').textContent = itemsCumplen;
-            document.getElementById('items-no-cumplen').textContent = itemsNoCumplen;
-            
-            var porcentaje = 0;
-            if (itemsCumplen + itemsNoCumplen > 0) {
-                porcentaje = Math.round((itemsCumplen / (itemsCumplen + itemsNoCumplen)) * 100);
-            }
-            
-            document.getElementById('porcentaje-cumplimiento').textContent = porcentaje;
-            
-            var resultElement = document.getElementById('resultado-evaluacion');
-            resultElement.classList.remove('seguro', 'riesgo', 'inseguro');
-            
-            // Determinar el resultado de la evaluación
-            var estadoSeguridad = "PENDIENTE DE EVALUACIÓN";
-            var recomendacionTexto = "Complete la evaluación para generar un análisis de vulnerabilidades.";
-            
-            if (itemsCumplen + itemsNoCumplen > 0) {
-                if (porcentaje >= 80) {
-                    estadoSeguridad = "ESTABLECIMIENTO SEGURO";
-                    resultElement.classList.add('seguro');
-                    recomendacionTexto = "El establecimiento cumple con la mayoría de los requisitos de seguridad. Se recomienda mantener las medidas actuales y mejorar los aspectos no conformes.";
-                } else if (porcentaje >= 60) {
-                    estadoSeguridad = "ESTABLECIMIENTO EN RIESGO";
-                    resultElement.classList.add('riesgo');
-                    recomendacionTexto = "El establecimiento presenta vulnerabilidades significativas que deben ser subsanadas a corto plazo. Se requiere un plan de acción inmediato.";
-                } else {
-                    estadoSeguridad = "ESTABLECIMIENTO INSEGURO";
-                    resultElement.classList.add('inseguro');
-                    recomendacionTexto = "El establecimiento presenta graves deficiencias de seguridad que lo hacen vulnerable. Se requiere intervención urgente y un plan integral de mejora.";
-                }
-            }
-            
-            resultElement.textContent = estadoSeguridad;
-            document.getElementById('recomendacion').textContent = recomendacionTexto;
-            
-            // Generar resumen automático
-            generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad);
+<script>
+    function contarCumplimiento() {
+        var totalItems = document.querySelectorAll('input[type="radio"][name^="item_"]').length / 2;
+        var itemsCumplen = document.querySelectorAll('input[type="radio"][value="cumple"]:checked').length;
+        var itemsNoCumplen = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked').length;
+        
+        document.getElementById('total-items').textContent = totalItems;
+        document.getElementById('items-cumplen').textContent = itemsCumplen;
+        document.getElementById('items-no-cumplen').textContent = itemsNoCumplen;
+        
+        var porcentaje = 0;
+        if (itemsCumplen + itemsNoCumplen > 0) {
+            porcentaje = Math.round((itemsCumplen / (itemsCumplen + itemsNoCumplen)) * 100);
         }
-        function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
-            var resumenElement = document.getElementById('resumen-automatico');
-            
-            // Obtener la entidad y fecha
-            var nombreEntidad = document.querySelector('input[name="nombre_entidad"]').value || "[Nombre no especificado]";
-            var fechaDia = document.querySelector('input[name="dia"]').value || "XX";
-            var fechaMes = document.querySelector('input[name="mes"]').value || "XX";
-            var fechaAno = document.querySelector('input[name="ano"]').value || "XX";
-            
-            // Recopilar información sobre items no cumplidos
-            var itemsNoCumplidosElements = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked');
-            var areasProblematicas = [];
-            
-            itemsNoCumplidosElements.forEach(function(radioButton) {
-                var fila = radioButton.closest('tr');
-                var itemDescripcion = fila.querySelector('td:first-child').textContent;
-                // Excluir cualquier ítem relacionado con armamento si hubiera
-                if (!itemDescripcion.toLowerCase().includes("arma") && 
-                    !itemDescripcion.toLowerCase().includes("armamento") &&
-                    !itemDescripcion.toLowerCase().includes("munición") &&
-                    !itemDescripcion.toLowerCase().includes("pistola") &&
-                    !itemDescripcion.toLowerCase().includes("revólver")) {
-                    var seccion = fila.closest('table').previousElementSibling.textContent;
-                    areasProblematicas.push({ seccion: seccion, item: itemDescripcion });
-                }
-            });
-            
-            // Construir el resumen en formato compacto
-            var resumenHTML = `
-                <div class="resumen-info-compacto">
-                    <p><strong>Fecha de Evaluación:</strong> ${fechaDia}/${fechaMes}/${fechaAno}</p>
-                    <p><strong>Entidad Evaluada:</strong> ${nombreEntidad}</p>
-                    <p><strong>Resultado:</strong> ${estadoSeguridad}</p>
-                    <p><strong>Cumplimiento General:</strong> ${porcentaje}% (${itemsCumplen} de ${itemsCumplen + itemsNoCumplen} ítems)</p>
-                </div>
-            `;
-            
-            // Añadir áreas problemáticas si existen
-            if (areasProblematicas.length > 0) {
-                resumenHTML += `<div class="areas-atencion">
-                    <h4>Áreas que requieren atención:</h4><ul>`;
-                
-                // Agrupar por sección
-                var seccionesAgrupadas = {};
-                areasProblematicas.forEach(function(area) {
-                    if (!seccionesAgrupadas[area.seccion]) {
-                        seccionesAgrupadas[area.seccion] = [];
-                    }
-                    seccionesAgrupadas[area.seccion].push(area.item);
-                });
-                
-                // Añadir cada sección con sus items
-                for (var seccion in seccionesAgrupadas) {
-                    resumenHTML += `<li><strong>${seccion}</strong><ul>`;
-                    seccionesAgrupadas[seccion].forEach(function(item) {
-                        resumenHTML += `<li>${item} <span class="no-cumple-tag">NO CUMPLE</span></li>`;
-                    });
-                    resumenHTML += `</ul></li>`;
-                }
-                
-                resumenHTML += `</ul></div>`;
-            } else if (itemsCumplen + itemsNoCumplen > 0) {
-                resumenHTML += `<p><strong>¡Felicitaciones!</strong> Todos los ítems evaluados cumplen con los requisitos de seguridad.</p>`;
+        
+        document.getElementById('porcentaje-cumplimiento').textContent = porcentaje;
+        
+        var resultElement = document.getElementById('resultado-evaluacion');
+        resultElement.classList.remove('seguro', 'riesgo', 'inseguro');
+        
+        // Determinar el resultado de la evaluación
+        var estadoSeguridad = "PENDIENTE DE EVALUACIÓN";
+        var recomendacionTexto = "Complete la evaluación para generar un análisis de vulnerabilidades.";
+        
+        if (itemsCumplen + itemsNoCumplen > 0) {
+            if (porcentaje >= 80) {
+                estadoSeguridad = "ESTABLECIMIENTO SEGURO";
+                resultElement.classList.add('seguro');
+                recomendacionTexto = "El establecimiento cumple con la mayoría de los requisitos de seguridad. Se recomienda mantener las medidas actuales y mejorar los aspectos no conformes.";
+            } else if (porcentaje >= 60) {
+                estadoSeguridad = "ESTABLECIMIENTO EN RIESGO";
+                resultElement.classList.add('riesgo');
+                recomendacionTexto = "El establecimiento presenta vulnerabilidades significativas que deben ser subsanadas a corto plazo. Se requiere un plan de acción inmediato.";
             } else {
-                resumenHTML += `<p>No se han evaluado ítems todavía. Complete la evaluación para generar un análisis detallado.</p>`;
-            }
-            
-            resumenElement.innerHTML = resumenHTML;
-        }
-        
-        function imprimirFormulario() {
-            window.print();
-        }
-        
-        function limpiarFormulario() {
-            if (confirm("¿Está seguro que desea limpiar todo el formulario?")) {
-                document.getElementById("formulario-fiscalizacion").reset();
-                contarCumplimiento();
-                
-                // Limpiar campos de observaciones
-                var observaciones = document.querySelectorAll('td.observaciones textarea');
-                for (var i = 0; i < observaciones.length; i++) {
-                    observaciones[i].value = '';
-                }
-                
-                // Limpiar resumen automático
-                document.getElementById('resumen-automatico').innerHTML = '<p>El resumen detallado se generará automáticamente al completar la evaluación.</p>';
-                
-                // Limpiar plan de acción
-                var planEditor = document.getElementById('plan-accion-editor');
-                if (planEditor) {
-                    planEditor.innerHTML = '';
-                }
-                var planHidden = document.getElementById('plan-accion');
-                if (planHidden) {
-                    planHidden.value = '';
-                }
-                
-                // Limpiar previsualizaciones de fotos
-                document.getElementById('preview-foto1').innerHTML = '';
-                document.getElementById('preview-foto2').innerHTML = '';
-                
-                // Restaurar etiquetas y textos de fotografías
-                var fotoPlaceholders = document.querySelectorAll('.foto-placeholder');
-                for (var i = 0; i < fotoPlaceholders.length; i++) {
-                    fotoPlaceholders[i].querySelector('p').style.display = 'block';
-                    fotoPlaceholders[i].querySelector('label').style.display = 'inline-block';
-                }
-                
-                // Limpiar descripciones de fotos
-                var fotoDescripciones = document.querySelectorAll('.foto-descripcion');
-                for (var i = 0; i < fotoDescripciones.length; i++) {
-                    fotoDescripciones[i].value = '';
-                }
+                estadoSeguridad = "ESTABLECIMIENTO INSEGURO";
+                resultElement.classList.add('inseguro');
+                recomendacionTexto = "El establecimiento presenta graves deficiencias de seguridad que lo hacen vulnerable. Se requiere intervención urgente y un plan integral de mejora.";
             }
         }
         
-        // Función para aplicar formato al texto en el editor de texto enriquecido
-        function formatText(command, value = null) {
-          document.execCommand(command, false, value);
-          document.getElementById('plan-accion-editor').focus();
-                                                                  // Actualizar el campo oculto para enviar con el formulario
-          updateHiddenField();
-        }
-
-        // Función para actualizar el campo oculto con el contenido HTML
-        function updateHiddenField() {
-          const editor = document.getElementById('plan-accion-editor');
-          const hiddenField = document.getElementById('plan-accion');
-          
-          if (editor && hiddenField) {
-            hiddenField.value = editor.innerHTML;
-          }
-        }
+        resultElement.textContent = estadoSeguridad;
+        document.getElementById('recomendacion').textContent = recomendacionTexto;
         
-        // NUEVA FUNCIÓN: Ajusta automáticamente la altura del editor
-        function autoResizeEditor() {
-          const editor = document.getElementById('plan-accion-editor');
-          if (!editor) return;
-          
-          // Función para ajustar la altura según el contenido
-          function adjustHeight() {
-            // Guardar la posición de scroll actual
-            const scrollPos = window.scrollY;
+        // Generar resumen automático
+        generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad);
+    }
+    
+    function generarResumenAutomatico(itemsCumplen, itemsNoCumplen, porcentaje, estadoSeguridad) {
+        var resumenElement = document.getElementById('resumen-automatico');
+        
+        // Obtener la entidad y fecha
+        var nombreEntidad = document.querySelector('input[name="nombre_entidad"]').value || "[Nombre no especificado]";
+        var fechaDia = document.querySelector('input[name="dia"]').value || "XX";
+        var fechaMes = document.querySelector('input[name="mes"]').value || "XX";
+        var fechaAno = document.querySelector('input[name="ano"]').value || "XX";
+        
+        // Recopilar información sobre items no cumplidos
+        var itemsNoCumplidosElements = document.querySelectorAll('input[type="radio"][value="no-cumple"]:checked');
+        var areasProblematicas = [];
+        
+        itemsNoCumplidosElements.forEach(function(radioButton) {
+            var fila = radioButton.closest('tr');
+            var itemDescripcion = fila.querySelector('td:first-child').textContent;
+            // Excluir cualquier ítem relacionado con armamento si hubiera
+            if (!itemDescripcion.toLowerCase().includes("arma") && 
+                !itemDescripcion.toLowerCase().includes("armamento") &&
+                                                                   !itemDescripcion.toLowerCase().includes("munición") &&
+                !itemDescripcion.toLowerCase().includes("pistola") &&
+                !itemDescripcion.toLowerCase().includes("revólver")) {
+                var seccion = fila.closest('table').previousElementSibling.textContent;
+                areasProblematicas.push({ seccion: seccion, item: itemDescripcion });
+            }
+        });
+        
+        // Construir el resumen en formato compacto
+        var resumenHTML = `
+            <div class="resumen-info-compacto">
+                <p><strong>Fecha de Evaluación:</strong> ${fechaDia}/${fechaMes}/${fechaAno}</p>
+                <p><strong>Entidad Evaluada:</strong> ${nombreEntidad}</p>
+                <p><strong>Resultado:</strong> ${estadoSeguridad}</p>
+                <p><strong>Cumplimiento General:</strong> ${porcentaje}% (${itemsCumplen} de ${itemsCumplen + itemsNoCumplen} ítems)</p>
+            </div>
+        `;
+        
+        // Añadir áreas problemáticas si existen
+        if (areasProblematicas.length > 0) {
+            resumenHTML += `<div class="areas-atencion">
+                <h4>Áreas que requieren atención:</h4><ul>`;
             
-            // Resetear altura para calcular correctamente
-            editor.style.height = 'auto';
-            
-            // Añadir un poco de espacio extra al final
-            editor.style.height = (editor.scrollHeight + 20) + 'px';
-            
-            // Restaurar la posición de scroll para evitar saltos
-            window.scrollTo(0, scrollPos);
-          }
-          
-          // Ajustar la altura cuando cambie el contenido
-          editor.addEventListener('input', adjustHeight);
-          
-          // Ajustar también cuando se formatea el texto
-          const formatButtons = document.querySelectorAll('.rich-text-toolbar button');
-          formatButtons.forEach(button => {
-            button.addEventListener('click', function() {
-              // Pequeño retraso para permitir que el formato se aplique primero
-              setTimeout(adjustHeight, 10);
+            // Agrupar por sección
+            var seccionesAgrupadas = {};
+            areasProblematicas.forEach(function(area) {
+                if (!seccionesAgrupadas[area.seccion]) {
+                    seccionesAgrupadas[area.seccion] = [];
+                }
+                seccionesAgrupadas[area.seccion].push(area.item);
             });
-          });
-          
-          // Ajustar la altura inicial
-          adjustHeight();
+            
+            // Añadir cada sección con sus items
+            for (var seccion in seccionesAgrupadas) {
+                resumenHTML += `<li><strong>${seccion}</strong><ul>`;
+                seccionesAgrupadas[seccion].forEach(function(item) {
+                    resumenHTML += `<li>${item} <span class="no-cumple-tag">NO CUMPLE</span></li>`;
+                });
+                resumenHTML += `</ul></li>`;
+            }
+            
+            resumenHTML += `</ul></div>`;
+        } else if (itemsCumplen + itemsNoCumplen > 0) {
+            resumenHTML += `<p><strong>¡Felicitaciones!</strong> Todos los ítems evaluados cumplen con los requisitos de seguridad.</p>`;
+        } else {
+            resumenHTML += `<p>No se han evaluado ítems todavía. Complete la evaluación para generar un análisis detallado.</p>`;
         }
         
-        window.onload = function() {
-            // Añadir textareas a las celdas de observaciones (excluyendo los encabezados)
-            var observaciones = document.querySelectorAll('td.observaciones');
+        resumenElement.innerHTML = resumenHTML;
+    }
+    
+    function imprimirFormulario() {
+        window.print();
+    }
+    
+    function limpiarFormulario() {
+        if (confirm("¿Está seguro que desea limpiar todo el formulario?")) {
+            document.getElementById("formulario-fiscalizacion").reset();
+            contarCumplimiento();
+            
+            // Limpiar campos de observaciones
+            var observaciones = document.querySelectorAll('td.observaciones textarea');
             for (var i = 0; i < observaciones.length; i++) {
-                var textarea = document.createElement('textarea');
-                textarea.rows = 3;
-                textarea.style.minHeight = "70px";
-                textarea.style.width = "100%";
-                textarea.style.boxSizing = "border-box";
-            //  textarea.placeholder = "Ingrese sus observaciones aquí...";
-                observaciones[i].appendChild(textarea);
+                observaciones[i].value = '';
             }
             
-            // Convertir divs a radio buttons
-            var checkboxes = document.querySelectorAll('td.check-column div.check-box');
-            for(var i = 0; i < checkboxes.length; i++) {
-                var div = checkboxes[i];
-                var td = div.parentNode;
-                var row = td.parentNode;
-                var itemNumber = Math.floor(i/2);
-                var isCumple = td.cellIndex === 1;
-                
-                var radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.name = 'item_' + itemNumber;
-                radio.value = isCumple ? 'cumple' : 'no-cumple';
-                radio.onclick = function() { contarCumplimiento(); };
-                
-                div.parentNode.replaceChild(radio, div);
+            // Limpiar resumen automático
+            document.getElementById('resumen-automatico').innerHTML = '<p>El resumen detallado se generará automáticamente al completar la evaluación.</p>';
+            
+            // Limpiar plan de acción
+            var planEditor = document.getElementById('plan-accion-editor');
+            if (planEditor) {
+                planEditor.innerHTML = '';
             }
+            var planHidden = document.getElementById('plan-accion');
+            if (planHidden) {
+                planHidden.value = '';
+            }
+            
+            // Limpiar previsualizaciones de fotos
+            document.getElementById('preview-foto1').innerHTML = '';
+            document.getElementById('preview-foto2').innerHTML = '';
+            
+            // Restaurar etiquetas y textos de fotografías
+            var fotoPlaceholders = document.querySelectorAll('.foto-placeholder');
+            for (var i = 0; i < fotoPlaceholders.length; i++) {
+                fotoPlaceholders[i].querySelector('p').style.display = 'block';
+                fotoPlaceholders[i].querySelector('label').style.display = 'inline-block';
+            }
+            
+            // Limpiar descripciones de fotos
+            var fotoDescripciones = document.querySelectorAll('.foto-descripcion');
+            for (var i = 0; i < fotoDescripciones.length; i++) {
+                fotoDescripciones[i].value = '';
+            }
+        }
+    }
+    
+    // Función para aplicar formato al texto en el editor de texto enriquecido
+    function formatText(command, value = null) {
+      document.execCommand(command, false, value);
+      document.getElementById('plan-accion-editor').focus();
+                                                              // Actualizar el campo oculto para enviar con el formulario
+      updateHiddenField();
+    }
 
-            // Inicializar con ejemplo de datos predefinidos
-            document.querySelector('input[name="nombre_entidad"]').value = "CENTRO DE SALUD FAMILIAR (CESFAM) SAN JUAN";
-            document.querySelector('input[name="dia"]').value = "27";
-            document.querySelector('input[name="mes"]').value = "03";
-            document.querySelector('input[name="ano"]').value = "25";
+    // Función para actualizar el campo oculto con el contenido HTML
+    function updateHiddenField() {
+      const editor = document.getElementById('plan-accion-editor');
+      const hiddenField = document.getElementById('plan-accion');
+      
+      if (editor && hiddenField) {
+        hiddenField.value = editor.innerHTML;
+      }
+    }
+    
+    // NUEVA FUNCIÓN: Ajusta automáticamente la altura del editor
+    function autoResizeEditor() {
+      const editor = document.getElementById('plan-accion-editor');
+      if (!editor) return;
+      
+      // Función para ajustar la altura según el contenido
+      function adjustHeight() {
+        // Guardar la posición de scroll actual
+        const scrollPos = window.scrollY;
+        
+        // Resetear altura para calcular correctamente
+        editor.style.height = 'auto';
+        
+        // Añadir un poco de espacio extra al final
+        editor.style.height = (editor.scrollHeight + 20) + 'px';
+        
+        // Restaurar la posición de scroll para evitar saltos
+        window.scrollTo(0, scrollPos);
+      }
+      
+      // Ajustar la altura cuando cambie el contenido
+      editor.addEventListener('input', adjustHeight);
+      
+      // Ajustar también cuando se formatea el texto
+      const formatButtons = document.querySelectorAll('.rich-text-toolbar button');
+      formatButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Pequeño retraso para permitir que el formato se aplique primero
+          setTimeout(adjustHeight, 10);
+        });
+      });
+      
+      // Ajustar la altura inicial
+      adjustHeight();
+    }
+    
+    window.onload = function() {
+        // Añadir textareas a las celdas de observaciones (excluyendo los encabezados)
+        var observaciones = document.querySelectorAll('td.observaciones');
+        for (var i = 0; i < observaciones.length; i++) {
+            var textarea = document.createElement('textarea');
+            textarea.rows = 3;
+            textarea.style.minHeight = "70px";
+            textarea.style.width = "100%";
+            textarea.style.boxSizing = "border-box";
+        //  textarea.placeholder = "Ingrese sus observaciones aquí...";
+            observaciones[i].appendChild(textarea);
+        }
+        
+        // Convertir divs a radio buttons
+        var checkboxes = document.querySelectorAll('td.check-column div.check-box');
+        for(var i = 0; i < checkboxes.length; i++) {
+            var div = checkboxes[i];
+            var td = div.parentNode;
+            var row = td.parentNode;
+            var itemNumber = Math.floor(i/2);
+            var isCumple = td.cellIndex === 1;
             
-            // Marcar algunos items como ejemplo
-            // Esta parte es solo para simular los datos que se enviaron (12 cumplen, 18 no cumplen)
-            for(var i = 0; i < 30; i++) {
-                if(i < 12) {
-                    if (document.getElementsByName('item_' + i)[0]) {
-                        document.getElementsByName('item_' + i)[0].checked = true; // Cumple
-                    }
-                } else {
-                    if (document.getElementsByName('item_' + (i-12))[1]) {
-                        document.getElementsByName('item_' + (i-12))[1].checked = true; // No cumple
-                    }
+            var radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = 'item_' + itemNumber;
+            radio.value = isCumple ? 'cumple' : 'no-cumple';
+            radio.onclick = function() { contarCumplimiento(); };
+            
+            div.parentNode.replaceChild(radio, div);
+        }
+
+        // Inicializar con ejemplo de datos predefinidos
+        document.querySelector('input[name="nombre_entidad"]').value = "CENTRO DE SALUD FAMILIAR (CESFAM) SAN JUAN";
+        document.querySelector('input[name="dia"]').value = "27";
+        document.querySelector('input[name="mes"]').value = "03";
+        document.querySelector('input[name="ano"]').value = "25";
+        
+        // Marcar algunos items como ejemplo
+        // Esta parte es solo para simular los datos que se enviaron (12 cumplen, 18 no cumplen)
+        for(var i = 0; i < 30; i++) {
+            if(i < 12) {
+                if (document.getElementsByName('item_' + i)[0]) {
+                    document.getElementsByName('item_' + i)[0].checked = true; // Cumple
+                }
+            } else {
+                if (document.getElementsByName('item_' + (i-12))[1]) {
+                    document.getElementsByName('item_' + (i-12))[1].checked = true; // No cumple
                 }
             }
-            
-            // Inicializar el editor de texto enriquecido
-            initRichEditor();
-            
-            // AÑADIDO: Inicializar la función de autoexpansión del editor
-            autoResizeEditor();
-            
-            // Actualizar conteo
-            contarCumplimiento();
-        };
+        }
         
         // Inicializar el editor de texto enriquecido
-        function initRichEditor() {
-          const editor = document.getElementById('plan-accion-editor');
-          if (!editor) return;
-          
-          // Asegurarse de que el contenido se guarde cuando se modifique
-          editor.addEventListener('input', updateHiddenField);
-          editor.addEventListener('blur', updateHiddenField);
-          
-          // Si el formulario tiene un evento submit, asegúrate de actualizar el campo oculto
-          const form = editor.closest('form');
-          if (form) {
-            form.addEventListener('submit', function() {
-              updateHiddenField();
-            });
-          }
-          
-          // Para asegurar que el editor siempre tenga un párrafo
-          editor.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-              // Usar setTimeout para que se ejecute después de que el navegador haya procesado el Enter
-              setTimeout(function() {
-                const selection = window.getSelection();
-                const range = selection.getRangeAt(0);
-                const currentNode = range.startContainer;
-                
-                // Si no estamos dentro de un párrafo, crear uno
-                if (currentNode.nodeType === Node.TEXT_NODE && currentNode.parentNode === editor) {
-                  document.execCommand('formatBlock', false, 'p');
-                }
-              }, 0);
-            }
-          });
-        }
+        initRichEditor();
         
-        // Función para guardar como PDF
-        function guardarPDF() {
-            window.alert("Para guardar como PDF, utilice la opción de imprimir y seleccione 'Guardar como PDF' en las opciones de destino de su navegador.");
-            setTimeout(function() {
-                window.print();
-            }, 500);
-        }
+        // AÑADIDO: Inicializar la función de autoexpansión del editor
+        autoResizeEditor();
         
-        // Función para mostrar la imagen seleccionada
-        function mostrarImagen(input, previewId) {
-            var preview = document.getElementById(previewId);
-            preview.innerHTML = '';
+        // Actualizar conteo
+        contarCumplimiento();
+    };
+    
+    // Inicializar el editor de texto enriquecido
+    function initRichEditor() {
+      const editor = document.getElementById('plan-accion-editor');
+      if (!editor) return;
+      
+      // Asegurarse de que el contenido se guarde cuando se modifique
+      editor.addEventListener('input', updateHiddenField);
+      editor.addEventListener('blur', updateHiddenField);
+      
+      // Si el formulario tiene un evento submit, asegúrate de actualizar el campo oculto
+      const form = editor.closest('form');
+      if (form) {
+        form.addEventListener('submit', function() {
+          updateHiddenField();
+        });
+      }
+      
+      // Para asegurar que el editor siempre tenga un párrafo
+      editor.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          // Usar setTimeout para que se ejecute después de que el navegador haya procesado el Enter
+          setTimeout(function() {
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            const currentNode = range.startContainer;
             
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.className = 'foto-preview';
-                    preview.appendChild(img);
-                    
-                    // Ocultar el texto y el botón cuando hay una imagen
-                    var placeholder = input.parentElement;
-                    placeholder.querySelector('p').style.display = 'none';
-                    placeholder.querySelector('label').style.display = 'none';
-                };
-                
-                reader.readAsDataURL(input.files[0]);
+            // Si no estamos dentro de un párrafo, crear uno
+            if (currentNode.nodeType === Node.TEXT_NODE && currentNode.parentNode === editor) {
+              document.execCommand('formatBlock', false, 'p');
             }
+          }, 0);
         }
-    </script>
-    <body>
+      });
+    }
+    
+    // Función para guardar como PDF
+    function guardarPDF() {
+        window.alert("Para guardar como PDF, utilice la opción de imprimir y seleccione 'Guardar como PDF' en las opciones de destino de su navegador.");
+        setTimeout(function() {
+            window.print();
+        }, 500);
+    }
+    
+    // Función para mostrar la imagen seleccionada
+    function mostrarImagen(input, previewId) {
+        var preview = document.getElementById(previewId);
+        preview.innerHTML = '';
+        
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function(e) {
+                var img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'foto-preview';
+                preview.appendChild(img);
+                
+                // Ocultar el texto y el botón cuando hay una imagen
+                var placeholder = input.parentElement;
+                placeholder.querySelector('p').style.display = 'none';
+                placeholder.querySelector('label').style.display = 'none';
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+<body>
    <div class="container">
         <form id="formulario-fiscalizacion">
             <h1>CUADRO DE FISCALIZACIÓN DE SEGURIDAD PRIVADA</h1>
@@ -1221,7 +1320,8 @@
                 </tr>
             </table>
 
-            <div class="page-break"></div>
+            <!-- Salto de página controlado -->
+            <div id="seccion-personal" class="forced-page-break"></div>
             <h2>2. PERSONAL DE SEGURIDAD</h2>
 
             <h3>A. Guardias de Seguridad</h3>
@@ -1259,7 +1359,7 @@
             </table>
 
             <h3>B. Dotación y Turnos</h3>
-            <table>
+                                             <table>
                 <tr class="header-row">
                     <th width="45%">Ítem a Fiscalizar</th>
                     <th class="check-column" width="80px">Cumple</th>
@@ -1298,7 +1398,8 @@
                 </tr>
             </table>
 
-            <div class="page-break"></div>
+            <!-- Salto de página controlado -->
+            <div id="seccion-uniformes" class="forced-page-break"></div>
             <h2>3. UNIFORMES Y EQUIPAMIENTO</h2>
 
             <h3>A. Uniformes</h3>
@@ -1381,7 +1482,8 @@
                 </tr>
             </table>
 
-            <div class="page-break"></div>
+            <!-- Salto de página controlado -->
+            <div id="seccion-sistemas" class="forced-page-break"></div>
             <h2>4. SISTEMAS TECNOLÓGICOS</h2>
 
             <h3>A. Circuito Cerrado de Televisión (CCTV)</h3>
@@ -1430,9 +1532,9 @@
                 <button type="button" onclick="guardarPDF()">Guardar como PDF</button>
             </div>
             
-            <div class="page-break"></div>
-            
-            <h2 class="page-title">RESUMEN DE FISCALIZACIÓN</h2>
+            <!-- Salto de página controlado -->
+            <div id="seccion-resumen" class="forced-page-break"></div>
+            <h2>RESUMEN DE FISCALIZACIÓN</h2>
             
             <div class="summary">
                 <!-- Sección de resultados modificada para ser más compacta -->
@@ -1444,13 +1546,13 @@
                         <p>Ítems que no cumplen: <span id="items-no-cumplen">0</span></p>
                         <p>Porcentaje de cumplimiento: <span id="porcentaje-cumplimiento">0</span>%</p>
                     </div>
-                                                                                         <div id="resultado-evaluacion" class="result">PENDIENTE DE EVALUACIÓN</div>
+                    <div id="resultado-evaluacion" class="result">PENDIENTE DE EVALUACIÓN</div>
                     <p id="recomendacion">Complete la evaluación para generar un análisis de vulnerabilidades.</p>
                 </div>
                 
                 <h3>Resumen Automático de la Fiscalización</h3>
                 <div id="resumen-automatico" class="resumen-seccion">
-                    <p>El resumen detallado se generará automáticamente al completar la evaluación.</p>
+                   <p>El resumen detallado se generará automáticamente al completar la evaluación.</p>
                 </div>
                 
                 <h3>Recomendaciones y Plan de Acción</h3>
@@ -1483,9 +1585,9 @@
                 </div>
             </div>
             
-            <div class="page-break"></div>
-            
-            <h2 class="page-title">SET FOTOGRÁFICO</h2>
+            <!-- Salto de página controlado -->
+            <div id="seccion-fotos" class="forced-page-break"></div>
+            <h2>SET FOTOGRÁFICO</h2>
             
             <div class="set-fotografico">
                 <div class="foto-container">
