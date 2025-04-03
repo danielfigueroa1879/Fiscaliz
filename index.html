@@ -446,7 +446,32 @@ th, td {
             margin-top: 10px;
             margin-bottom: 5px;
         }
+/* Estilos para agrandar los encabezados de las tablas */
+table tr.header-row th {
+    font-size: 1.3rem !important; /* Texto considerablemente más grande */
+    font-weight: 600; /* Un poco más grueso */
+    padding: 16px 12px; /* Aumentar el espaciado vertical */
+    text-align: center; /* Centrado para mejor apariencia */
+    line-height: 1.4; /* Mejor espaciado entre líneas */
+}
 
+/* Específicamente para el encabezado de Ítem a Fiscalizar */
+tr.header-row th:first-child {
+    text-align: left; /* Alineación a la izquierda para la columna de ítems */
+    padding-left: 15px;
+}
+
+/* Para impresión */
+@media print {
+    table tr.header-row th {
+        font-size: 14px !important; /* Más grande que otros textos en impresión */
+        font-weight: bold;
+        padding: 8px 6px;
+    }
+}
+
+
+        
     /* Estilos mejorados para impresión - tamaño MUCHO más grande y proporcional */
 @media print {
     body {
