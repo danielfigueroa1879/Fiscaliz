@@ -7,240 +7,112 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+    <style>/* Estilos generales con letra más grande para visualización en pantalla, botones sin cambios */
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-            font-size: 18px;
-            color: #333;
-            line-height: 1.6;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .resumen-seccion {
-            background-color: #f2f2f2;
-            padding: 17px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #ddd;
-        }
-        
-        .resumen-seccion li {
-            margin-bottom: 10px;
-        }
-        
-        .resumen-seccion ul ul li {
-            color: #333;
-        }
-        
-        .no-cumple-tag {
-            font-weight: 700;
-            color: #ff0000;
-            margin-left: 5px;
-            font-size: 0.85rem;
-        }
-        
-        .firmas-seccion {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-        }
-        
-        .firma-bloque {
-            width: 300px;
-            text-align: center;
-            margin: 0 auto;
-        }
-        
-        .set-fotografico {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-        
-        .foto-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .foto-marco {
-            border: 2px dashed #ccc;
-            border-radius: 10px;
-            padding: 15px;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .foto-placeholder {
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .foto-placeholder p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        .foto-input {
-            display: none;
-        }
-        
-        .foto-label {
-            background-color: #003366;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .foto-label:hover {
-            background-color: #004080;
-        }
-        
-        .foto-descripcion {
-            width: 100%;
-            min-height: 80px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .preview-imagen {
-            width: 100%;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        
-        .foto-preview {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        
-        .linea-firma {
-            height: 1px;
-            background-color: #000;
-            margin: 40px 0 10px 0;
-        }
-        
-        .container {
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-            text-align: center;
-            color: #003366;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            font-weight: 600;
-        }
-        
-        h2 {
-            color: #003366;
-            margin-top: 35px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #003366;
-            padding-bottom: 8px;
-            font-size: 1.7rem;
-            font-weight: 600;
-            clear: both;
-            page-break-before: auto;
-        }
-        
-        h2.page-title {
-            page-break-before: always;
-            margin-top: 20px;
-        }
-        
-        h3 {
-            color: #006699;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            font-size: 1.4rem;
-            font-weight: 500;
-        }
-        
-        .info-section {
-            background-color: #f9f9f9;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        
-        .info-section p {
-            margin: 12px 0;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .info-section p strong {
-            display: inline-block;
-            width: 240px;
-        }
-        
-        .info-section input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-        }
-        
-        .fecha-inputs {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .fecha-inputs input {
-            width: 40px;
-            text-align: center;
-        }
-        
-        table {
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-            font-size: 0.95rem;
-            border-radius: 10px;
-            overflow: visible;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        }
-        
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-            vertical-align: top;
-            word-wrap: break-word;
-            font-size: 0.95rem;
-        }
-        
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    font-size: 20px; /* Aumentado de 18px */
+    color: #333;
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 25px; /* Aumentado de 20px */
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 35px; /* Aumentado de 30px */
+    font-size: 2.4rem; /* Aumentado de 2.2rem */
+    font-weight: 600;
+}
+
+h2 {
+    color: #003366;
+    margin-top: 40px; /* Aumentado de 35px */
+    margin-bottom: 18px; /* Aumentado de 15px */
+    border-bottom: 2px solid #003366;
+    padding-bottom: 10px; /* Aumentado de 8px */
+    font-size: 1.9rem; /* Aumentado de 1.7rem */
+    font-weight: 600;
+    clear: both;
+}
+
+h3 {
+    color: #006699;
+    margin-top: 30px; /* Aumentado de 25px */
+    margin-bottom: 15px; /* Aumentado de 12px */
+    font-size: 1.6rem; /* Aumentado de 1.4rem */
+    font-weight: 500;
+}
+
+.info-section {
+    background-color: #f9f9f9;
+    padding: 30px; /* Aumentado de 25px */
+    border-radius: 10px;
+    margin-bottom: 35px; /* Aumentado de 30px */
+}
+
+.info-section p {
+    margin: 15px 0; /* Aumentado de 12px */
+    font-size: 1.2rem; /* Aumentado de 1.1rem */
+    display: flex;
+    align-items: center;
+}
+
+.info-section p strong {
+    display: inline-block;
+    width: 260px; /* Aumentado de 240px */
+}
+
+.info-section input {
+    flex: 1;
+    padding: 10px; /* Aumentado de 8px */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem; /* Aumentado de 1.1rem */
+}
+
+.fecha-inputs {
+    display: flex;
+    gap: 6px; /* Aumentado de 5px */
+}
+
+.fecha-inputs input {
+    width: 45px; /* Aumentado de 40px */
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-bottom: 30px; /* Aumentado de 25px */
+    font-size: 1.1rem; /* Aumentado de 0.95rem */
+    border-radius: 10px;
+    overflow: visible;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 14px; /* Aumentado de 12px */
+    text-align: left;
+    vertical-align: top;
+    word-wrap: break-word;
+    font-size: 1.1rem; /* Aumentado de 0.95rem */
+}
+
         th {
             background-color: #003366;
             color: white;
