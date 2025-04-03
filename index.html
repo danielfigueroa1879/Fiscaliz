@@ -572,132 +572,172 @@
             margin-bottom: 5px;
         }
 
-        /* Estilos mejorados para impresión - soluciona hojas en blanco */
-        @media print {
-            body {
-                background-color: white;
-                font-size: 12px; /* Reducido para mejor ajuste en papel */
-                width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .container {
-                width: 100%;
-                padding: 10px;
-                box-shadow: none;
-                margin: 0;
-            }
-            
-            h1 {
-                font-size: 1.6rem;
-                margin-bottom: 20px;
-            }
-            
-            h2 {
-                font-size: 1.3rem;
-                margin-top: 15px;
-                margin-bottom: 10px;
-                page-break-before: auto; /* Evita saltos de página automáticos */
-            }
-            
-            h2.page-title {
-                page-break-before: auto; /* Cambiado de 'always' a 'auto' */
-            }
-            
-            /* Control explícito de saltos de página */
-            .forced-page-break {
-                page-break-before: always;
-                height: 0;
-                margin: 0;
-                padding: 0;
-            }
-            
-            h3 {
-                font-size: 1.1rem;
-                margin-top: 15px;
-                margin-bottom: 8px;
-            }
-            
-            table {
-                font-size: 10px; /* Texto más pequeño en tablas para evitar saltos */
-                page-break-inside: avoid;
-                margin-bottom: 15px;
-            }
-            
-            th, td {
-                padding: 6px;
-            }
-            
-            .info-section {
-                padding: 10px;
-                margin-bottom: 15px;
-            }
-            
-            .summary {
-                padding: 10px;
-                margin-top: 20px;
-            }
-            
-            .result {
-                padding: 10px;
-                margin-top: 15px;
-            }
-            
-            button, .no-print {
-                display: none;
-            }
-            
-            .count {
-                font-size: 0.9rem;
-            }
-            
-            /* Ajustes para el resumen */
-            #resumen-automatico {
-                font-size: 10px !important;
-                line-height: 1.3 !important;
-            }
-            
-            #resumen-automatico strong {
-                font-size: 10px !important;
-            }
-            
-            #resumen-automatico ul li, 
-            #resumen-automatico ul ul li {
-                font-size: 10px !important;
-            }
-            
-            .no-cumple-tag {
-                font-size: 9px !important;
-            }
-            
-            /* Ajustes para la sección de fotografías */
-            .foto-marco {
-                min-height: 150px;
-                border: 1px dashed #999;
-            }
-            
-            .foto-descripcion {
-                min-height: 50px;
-            }
-            
-            /* Reducir márgenes y espaciados */
-            .resultados-compacto, .resumen-seccion {
-                margin: 10px 0;
-                padding: 10px;
-            }
-            
-            /* Evitar que elementos queden cortados entre páginas */
-            .foto-container, .firma-bloque, .rich-text-container {
-                page-break-inside: avoid;
-            }
-            
-            /* Solución específica para las páginas 5 y 7 */
-            /* Controlar explícitamente dónde ocurren los saltos de página */
-            #seccion-uniformes, #seccion-resumen, #seccion-fotos {
-                page-break-before: always;
-            }
-        }
+    /* Estilos mejorados para impresión - tamaño más grande y proporcional */
+@media print {
+    body {
+        background-color: white;
+        font-size: 12px; /* Base para todo el documento */
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        width: 100%;
+        padding: 10px;
+        box-shadow: none;
+        margin: 0;
+    }
+    
+    h1 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        font-size: 16px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        page-break-before: auto;
+    }
+    
+    h3 {
+        font-size: 14px;
+        margin-top: 12px;
+        margin-bottom: 8px;
+    }
+    
+    /* Control explícito de saltos de página */
+    .forced-page-break {
+        page-break-before: always;
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+    
+    table {
+        font-size: 11px; /* Más grande que antes */
+        page-break-inside: avoid;
+        margin-bottom: 15px;
+    }
+    
+    th, td {
+        padding: 6px;
+    }
+    
+    .info-section {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .summary {
+        padding: 15px;
+        margin-top: 20px;
+    }
+    
+    .result {
+        padding: 12px;
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    
+    button, .no-print {
+        display: none;
+    }
+    
+    /* Ajustes específicos para el resumen - AUMENTADO TAMAÑO */
+    #resumen-automatico {
+        font-size: 12px !important; /* Aumentado de 10px */
+        line-height: 1.4 !important;
+    }
+    
+    #resumen-automatico strong {
+        font-size: 12px !important; /* Mismo tamaño para consistencia */
+        font-weight: bold;
+    }
+    
+    #resumen-automatico p {
+        margin: 5px 0;
+    }
+    
+    #resumen-automatico ul {
+        margin: 5px 0;
+        padding-left: 20px;
+    }
+    
+    #resumen-automatico ul li {
+        font-size: 12px !important; /* Consistente */
+        margin-bottom: 4px;
+    }
+    
+    #resumen-automatico ul ul {
+        margin: 4px 0;
+        padding-left: 15px;
+    }
+    
+    #resumen-automatico ul ul li {
+        font-size: 12px !important; /* Consistente */
+        margin-bottom: 3px;
+        line-height: 1.3;
+    }
+    
+    .no-cumple-tag {
+        font-size: 11px !important; /* Ligeramente más pequeño pero legible */
+        font-weight: bold;
+    }
+    
+    /* Mejorar visualización de listas en impresión */
+    .resumen-info-compacto {
+        margin-bottom: 8px;
+    }
+    
+    .resumen-info-compacto p {
+        margin: 4px 0;
+        font-size: 12px !important;
+    }
+    
+    .areas-atencion h4 {
+        font-size: 13px !important;
+        margin: 10px 0 5px 0;
+        font-weight: bold;
+    }
+    
+    /* Ajustes para fotografías */
+    .foto-marco {
+        min-height: 150px;
+        border: 1px dashed #999;
+    }
+    
+    .foto-descripcion {
+        min-height: 50px;
+    }
+    
+    /* Reducir márgenes y espaciados */
+    .resultados-compacto, .resumen-seccion {
+        margin: 12px 0;
+        padding: 12px;
+    }
+    
+    /* Evitar que elementos queden cortados entre páginas */
+    .foto-container, .firma-bloque, .rich-text-container {
+        page-break-inside: avoid;
+    }
+    
+    /* Solución específica para saltos de página */
+    #seccion-uniformes, #seccion-resumen, #seccion-fotos {
+        page-break-before: always;
+    }
+    
+    /* Para la tabla de resultados */
+    .resultados-info {
+        margin-bottom: 10px;
+    }
+    
+    .resultados-info p {
+        font-size: 12px;
+        margin: 3px 0;
+    }
+}
         
         /* Estilos responsivos para dispositivos móviles y pantallas pequeñas */
         @media screen and (max-width: 768px) {
