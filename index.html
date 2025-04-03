@@ -480,10 +480,12 @@
           align-self: center;
         }
 
+        /* MODIFICADO: Editor de texto ahora se expande automáticamente */
         .rich-text-editor {
           min-height: 300px;
-          max-height: 600px;
-          overflow-y: auto;
+          height: auto;         /* Permite que la altura se ajuste automáticamente */
+          max-height: none;     /* Elimina la altura máxima que causa el scroll */
+          overflow-y: visible;  /* Cambia de 'auto' a 'visible' para que no aparezca la barra de desplazamiento */
           padding: 15px;
           font-size: 1.2rem;
           line-height: 1.5;
@@ -731,7 +733,9 @@
             }
         }
     </style>
-    <script>
+</head>
+                              
+     <script>
         function contarCumplimiento() {
             var totalItems = document.querySelectorAll('input[type="radio"][name^="item_"]').length / 2;
             var itemsCumplen = document.querySelectorAll('input[type="radio"][value="cumple"]:checked').length;
@@ -898,8 +902,7 @@
         function formatText(command, value = null) {
           document.execCommand(command, false, value);
           document.getElementById('plan-accion-editor').focus();
-          
-          // Actualizar el campo oculto para enviar con el formulario
+                                                                  // Actualizar el campo oculto para enviar con el formulario
           updateHiddenField();
         }
 
@@ -911,6 +914,42 @@
           if (editor && hiddenField) {
             hiddenField.value = editor.innerHTML;
           }
+        }
+        
+        // NUEVA FUNCIÓN: Ajusta automáticamente la altura del editor
+        function autoResizeEditor() {
+          const editor = document.getElementById('plan-accion-editor');
+          if (!editor) return;
+          
+          // Función para ajustar la altura según el contenido
+          function adjustHeight() {
+            // Guardar la posición de scroll actual
+            const scrollPos = window.scrollY;
+            
+            // Resetear altura para calcular correctamente
+            editor.style.height = 'auto';
+            
+            // Añadir un poco de espacio extra al final
+            editor.style.height = (editor.scrollHeight + 20) + 'px';
+            
+            // Restaurar la posición de scroll para evitar saltos
+            window.scrollTo(0, scrollPos);
+          }
+          
+          // Ajustar la altura cuando cambie el contenido
+          editor.addEventListener('input', adjustHeight);
+          
+          // Ajustar también cuando se formatea el texto
+          const formatButtons = document.querySelectorAll('.rich-text-toolbar button');
+          formatButtons.forEach(button => {
+            button.addEventListener('click', function() {
+              // Pequeño retraso para permitir que el formato se aplique primero
+              setTimeout(adjustHeight, 10);
+            });
+          });
+          
+          // Ajustar la altura inicial
+          adjustHeight();
         }
         
         window.onload = function() {
@@ -966,6 +1005,9 @@
             
             // Inicializar el editor de texto enriquecido
             initRichEditor();
+            
+            // AÑADIDO: Inicializar la función de autoexpansión del editor
+            autoResizeEditor();
             
             // Actualizar conteo
             contarCumplimiento();
@@ -1038,8 +1080,7 @@
             }
         }
     </script>
-</head>
-<body>
+    <body>
    <div class="container">
         <form id="formulario-fiscalizacion">
             <h1>CUADRO DE FISCALIZACIÓN DE SEGURIDAD PRIVADA</h1>
@@ -1350,7 +1391,7 @@
                 </div>
                 
                 <h3>Recomendaciones y Plan de Acción</h3>
-                <!-- Editor de texto enriquecido -->
+                <!-- Editor de texto enriquecido con barra de herramientas completa -->
                 <div class="rich-text-container">
                   <div class="rich-text-toolbar">
                     <button type="button" onclick="formatText('bold')" title="Negrita"><b>N</b></button>
