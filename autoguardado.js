@@ -161,10 +161,11 @@ function debounce(func, delay) {
 
 // Añadir un nuevo botón para limpiar sólo los datos guardados
 function añadirBotonLimpiarDatos() {
-    // Solo añadir el botón al primer conjunto de botones para evitar duplicados
-    const primerBotonesDiv = document.querySelector('.botones');
+    // Seleccionar el último conjunto de botones (que está al final del formulario)
+    const botonesDivs = document.querySelectorAll('.botones');
+    const ultimoBotonesDiv = botonesDivs[botonesDivs.length - 1];
     
-    if (primerBotonesDiv) {
+    if (ultimoBotonesDiv) {
         // Crear el nuevo botón
         const botonLimpiar = document.createElement('button');
         botonLimpiar.type = 'button';
@@ -174,7 +175,7 @@ function añadirBotonLimpiarDatos() {
         botonLimpiar.className = 'no-print'; // Añadir clase no-print
         
         // Añadir el botón al div
-        primerBotonesDiv.appendChild(botonLimpiar);
+        ultimoBotonesDiv.appendChild(botonLimpiar);
     }
     
     // Asegurarse de que todos los botones tengan la clase no-print
@@ -360,11 +361,11 @@ function inicializarAutoguardado() {
     // Aplicar estilos adicionales para hacer la interfaz más compacta
     aplicarEstilosAdicionales();
     
-    // Eliminar segundo conjunto de botones para evitar duplicación
+    // Eliminar primer conjunto de botones y mantener solo el último
     const botonesDivs = document.querySelectorAll('.botones');
     if (botonesDivs.length > 1) {
-        // Mantener solo el primer conjunto de botones
-        for (let i = 1; i < botonesDivs.length; i++) {
+        // Mantener solo el último conjunto de botones (que está al final)
+        for (let i = 0; i < botonesDivs.length - 1; i++) {
             botonesDivs[i].style.display = 'none';
         }
     }
