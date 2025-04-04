@@ -1,149 +1,190 @@
 /**
- * autoguardado.js
+ * autoguardado.js - versión corregida
  * Sistema de persistencia de datos para formulario de fiscalización de seguridad privada
  */
 
+// Verificar disponibilidad de localStorage
+function verificarLocalStorage() {
+    try {
+        localStorage.setItem('test', 'test');
+        localStorage.removeItem('test');
+        return true;
+    } catch (e) {
+        console.error('localStorage no está disponible. Error:', e);
+        return false;
+    }
+}
+
 // Guardar todos los datos del formulario
 function guardarDatosFormulario() {
-    // Guardar campos de texto
-    const inputFields = document.querySelectorAll('input[type="text"]');
-    inputFields.forEach(input => {
-        localStorage.setItem(input.name, input.value);
-    });
+    if (!verificarLocalStorage()) return;
     
-    // Guardar radios (estado de cumplimiento)
-    const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
-    radioButtons.forEach(radio => {
-        localStorage.setItem(radio.name, radio.value);
-    });
+    console.log('Guardando datos del formulario...');
     
-    // Guardar textareas de observaciones
-    const observaciones = document.querySelectorAll('td.observaciones textarea');
-    observaciones.forEach((textarea, index) => {
-        localStorage.setItem('observacion_' + index, textarea.value);
-    });
-    
-    // Guardar descripciones de fotos
-    const fotoDescripciones = document.querySelectorAll('.foto-descripcion');
-    fotoDescripciones.forEach((desc, index) => {
-        localStorage.setItem('foto_desc_' + index, desc.value);
-    });
-    
-    // Guardar el plan de acción (editor de texto enriquecido)
-    const planAccion = document.getElementById('plan-accion-editor');
-    if (planAccion) {
-        localStorage.setItem('plan_accion', planAccion.innerHTML);
+    try {
+        // Guardar campos de texto
+        const inputFields = document.querySelectorAll('input[type="text"]');
+        inputFields.forEach(input => {
+            if (input.name) {
+                localStorage.setItem(input.name, input.value);
+                console.log(`Guardado: ${input.name} = ${input.value}`);
+            }
+        });
+        
+        // Guardar radios (estado de cumplimiento)
+        const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
+        radioButtons.forEach(radio => {
+            if (radio.name) {
+                localStorage.setItem(radio.name, radio.value);
+                console.log(`Guardado radio: ${radio.name} = ${radio.value}`);
+            }
+        });
+        
+        // Guardar textareas de observaciones
+        const observaciones = document.querySelectorAll('td.observaciones textarea');
+        observaciones.forEach((textarea, index) => {
+            localStorage.setItem('observacion_' + index, textarea.value);
+        });
+        
+        // Guardar descripciones de fotos
+        const fotoDescripciones = document.querySelectorAll('.foto-descripcion');
+        fotoDescripciones.forEach((desc, index) => {
+            localStorage.setItem('foto_desc_' + index, desc.value);
+        });
+        
+        // Guardar el plan de acción (editor de texto enriquecido)
+        const planAccion = document.getElementById('plan-accion-editor');
+        if (planAccion) {
+            localStorage.setItem('plan_accion', planAccion.innerHTML);
+        }
+        
+        // Guardar fecha y hora de la última actualización
+        localStorage.setItem('ultima_actualizacion', new Date().toLocaleString());
+        console.log('Todos los datos guardados correctamente');
+        
+        // Mostrar indicador de guardado
+        mostrarIndicadorGuardado();
+    } catch (e) {
+        console.error('Error al guardar datos:', e);
     }
-    
-    // Guardar fecha y hora de la última actualización
-    localStorage.setItem('ultima_actualizacion', new Date().toLocaleString());
+}
+
+// Mostrar indicador de guardado
+function mostrarIndicadorGuardado() {
+    const indicador = document.getElementById('indicador-guardado');
+    if (indicador) {
+        indicador.textContent = 'Guardado automático completado';
+        indicador.style.display = 'block';
+        
+        // Ocultar después de 2 segundos
+        setTimeout(() => {
+            indicador.style.display = 'none';
+        }, 2000);
+    }
 }
 
 // Cargar todos los datos guardados previamente
 function cargarDatosFormulario() {
-    // Cargar campos de texto
-    const inputFields = document.querySelectorAll('input[type="text"]');
-    inputFields.forEach(input => {
-        const valorGuardado = localStorage.getItem(input.name);
-        if (valorGuardado) {
-            input.value = valorGuardado;
+    if (!verificarLocalStorage()) return;
+    
+    console.log('Cargando datos guardados...');
+    
+    try {
+        // Verificar si hay datos guardados
+        if (localStorage.getItem('ultima_actualizacion')) {
+            console.log('Datos encontrados de: ' + localStorage.getItem('ultima_actualizacion'));
+        } else {
+            console.log('No se encontraron datos guardados');
+            return;
         }
-    });
-    
-    // Cargar radios (estado de cumplimiento)
-    const radioNames = new Set();
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-        radioNames.add(radio.name);
-    });
-    
-    radioNames.forEach(name => {
-        const valorGuardado = localStorage.getItem(name);
-        if (valorGuardado) {
-            const radio = document.querySelector(`input[name="${name}"][value="${valorGuardado}"]`);
-            if (radio) {
-                radio.checked = true;
+        
+        // Cargar campos de texto
+        const inputFields = document.querySelectorAll('input[type="text"]');
+        inputFields.forEach(input => {
+            if (input.name) {
+                const valorGuardado = localStorage.getItem(input.name);
+                if (valorGuardado) {
+                    input.value = valorGuardado;
+                    console.log(`Cargado: ${input.name} = ${valorGuardado}`);
+                }
+            }
+        });
+        
+        // Cargar radios (estado de cumplimiento)
+        const radioNames = new Set();
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            if (radio.name) {
+                radioNames.add(radio.name);
+            }
+        });
+        
+        radioNames.forEach(name => {
+            const valorGuardado = localStorage.getItem(name);
+            if (valorGuardado) {
+                const radio = document.querySelector(`input[name="${name}"][value="${valorGuardado}"]`);
+                if (radio) {
+                    radio.checked = true;
+                    console.log(`Radio cargado: ${name} = ${valorGuardado}`);
+                }
+            }
+        });
+        
+        // Cargar textareas de observaciones
+        const observaciones = document.querySelectorAll('td.observaciones textarea');
+        observaciones.forEach((textarea, index) => {
+            const valorGuardado = localStorage.getItem('observacion_' + index);
+            if (valorGuardado) {
+                textarea.value = valorGuardado;
+            }
+        });
+        
+        // Cargar descripciones de fotos
+        const fotoDescripciones = document.querySelectorAll('.foto-descripcion');
+        fotoDescripciones.forEach((desc, index) => {
+            const valorGuardado = localStorage.getItem('foto_desc_' + index);
+            if (valorGuardado) {
+                desc.value = valorGuardado;
+            }
+        });
+        
+        // Cargar el plan de acción (editor de texto enriquecido)
+        const planAccion = document.getElementById('plan-accion-editor');
+        if (planAccion) {
+            const valorGuardado = localStorage.getItem('plan_accion');
+            if (valorGuardado) {
+                planAccion.innerHTML = valorGuardado;
             }
         }
-    });
-    
-    // Cargar textareas de observaciones
-    const observaciones = document.querySelectorAll('td.observaciones textarea');
-    observaciones.forEach((textarea, index) => {
-        const valorGuardado = localStorage.getItem('observacion_' + index);
-        if (valorGuardado) {
-            textarea.value = valorGuardado;
+        
+        // Actualizar conteo después de cargar todos los datos
+        if (typeof contarCumplimiento === 'function') {
+            contarCumplimiento();
+        } else {
+            console.error('Función contarCumplimiento no encontrada');
         }
-    });
-    
-    // Cargar descripciones de fotos
-    const fotoDescripciones = document.querySelectorAll('.foto-descripcion');
-    fotoDescripciones.forEach((desc, index) => {
-        const valorGuardado = localStorage.getItem('foto_desc_' + index);
-        if (valorGuardado) {
-            desc.value = valorGuardado;
-        }
-    });
-    
-    // Cargar el plan de acción (editor de texto enriquecido)
-    const planAccion = document.getElementById('plan-accion-editor');
-    if (planAccion) {
-        const valorGuardado = localStorage.getItem('plan_accion');
-        if (valorGuardado) {
-            planAccion.innerHTML = valorGuardado;
-        }
+        
+        console.log('Datos cargados correctamente');
+    } catch (e) {
+        console.error('Error al cargar datos:', e);
     }
-    
-    // Actualizar conteo después de cargar todos los datos
-    contarCumplimiento();
 }
 
 // Función para limpiar todos los datos guardados
 function limpiarDatosGuardados() {
+    if (!verificarLocalStorage()) return;
+    
     if (confirm("¿Está seguro que desea eliminar todos los datos guardados? Esta acción no se puede deshacer.")) {
         localStorage.clear();
-        limpiarFormulario();
+        
+        if (typeof limpiarFormulario === 'function') {
+            limpiarFormulario();
+        } else {
+            location.reload(); // Si no encuentra la función, recargar la página
+        }
         
         // Mostrar mensaje de confirmación
         alert("Todos los datos guardados han sido eliminados.");
     }
-}
-
-// Configurar el autoguardado mientras se escribe
-function configurarAutoguardado() {
-    // Guardar al cambiar inputs de texto
-    document.querySelectorAll('input[type="text"]').forEach(input => {
-        input.addEventListener('change', guardarDatosFormulario);
-    });
-    
-    // Guardar al cambiar radios
-    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-        radio.addEventListener('change', guardarDatosFormulario);
-    });
-    
-    // Guardar al cambiar textareas
-    document.querySelectorAll('textarea').forEach(textarea => {
-        textarea.addEventListener('change', guardarDatosFormulario);
-        // También guardar mientras se escribe, pero con un retraso
-        textarea.addEventListener('input', debounce(guardarDatosFormulario, 1000));
-    });
-    
-    // Guardar cuando se edita el plan de acción
-    const planAccion = document.getElementById('plan-accion-editor');
-    if (planAccion) {
-        planAccion.addEventListener('input', debounce(guardarDatosFormulario, 1000));
-    }
-    
-    // Modificar la función limpiarFormulario original para que también borre localStorage
-    const limpiarFormularioOriginal = window.limpiarFormulario;
-    window.limpiarFormulario = function() {
-        if (confirm("¿Está seguro que desea limpiar todo el formulario? También se eliminarán los datos guardados.")) {
-            localStorage.clear();
-            limpiarFormularioOriginal();
-        }
-    };
-    
-    // Añadir un nuevo botón para limpiar datos guardados
-    añadirBotonLimpiarDatos();
 }
 
 // Función para retrasar la ejecución (útil para autoguardado mientras se escribe)
@@ -163,22 +204,25 @@ function debounce(func, delay) {
 function añadirBotonLimpiarDatos() {
     // Seleccionar el último conjunto de botones (que está al final del formulario)
     const botonesDivs = document.querySelectorAll('.botones');
-    const ultimoBotonesDiv = botonesDivs[botonesDivs.length - 1];
-    
-    if (ultimoBotonesDiv) {
-        // Crear el nuevo botón
-        const botonLimpiar = document.createElement('button');
-        botonLimpiar.type = 'button';
-        botonLimpiar.textContent = 'Eliminar Datos Guardados';
-        botonLimpiar.onclick = limpiarDatosGuardados;
-        botonLimpiar.style.backgroundColor = '#d9534f'; // Color rojo para indicar acción destructiva
-        botonLimpiar.className = 'no-print'; // Añadir clase no-print
-        
-        // Añadir el botón al div
-        ultimoBotonesDiv.appendChild(botonLimpiar);
+    if (botonesDivs.length === 0) {
+        console.error('No se encontraron divs de botones');
+        return;
     }
     
-    // Asegurarse de que todos los botones tengan la clase no-print
+    const ultimoBotonesDiv = botonesDivs[botonesDivs.length - 1];
+    
+    // Crear el nuevo botón
+    const botonLimpiar = document.createElement('button');
+    botonLimpiar.type = 'button';
+    botonLimpiar.textContent = 'Eliminar Datos Guardados';
+    botonLimpiar.onclick = limpiarDatosGuardados;
+    botonLimpiar.style.backgroundColor = '#d9534f'; // Color rojo para indicar acción destructiva
+    botonLimpiar.className = 'no-print'; // Añadir clase no-print
+    
+    // Añadir el botón al div
+    ultimoBotonesDiv.appendChild(botonLimpiar);
+    
+    // Asegurarse de que todos los botones tengan la clase no-print y estilo actualizado
     document.querySelectorAll('.botones button').forEach(boton => {
         if (!boton.classList.contains('no-print')) {
             boton.classList.add('no-print');
@@ -193,6 +237,11 @@ function añadirBotonLimpiarDatos() {
 
 // Añadir indicador de último guardado
 function añadirIndicadorGuardado() {
+    // Comprobar si ya existe el indicador
+    if (document.getElementById('indicador-guardado')) {
+        return;
+    }
+    
     // Crear el elemento indicador
     const indicador = document.createElement('div');
     indicador.id = 'indicador-guardado';
@@ -210,26 +259,20 @@ function añadirIndicadorGuardado() {
     
     // Añadir al cuerpo del documento
     document.body.appendChild(indicador);
-    
-    // Actualizar el indicador cada vez que se guarde
-    const guardarOriginal = guardarDatosFormulario;
-    window.guardarDatosFormulario = function() {
-        guardarOriginal();
-        indicador.textContent = 'Guardado automático completado';
-        indicador.style.display = 'block';
-        
-        // Ocultar después de 2 segundos
-        setTimeout(() => {
-            indicador.style.display = 'none';
-        }, 2000);
-    };
 }
 
 // Añadir sección de información sobre datos guardados
 function añadirInfoDatosGuardados() {
+    if (!verificarLocalStorage()) return;
+    
     const ultimaActualizacion = localStorage.getItem('ultima_actualizacion');
     
     if (ultimaActualizacion) {
+        // Comprobar si ya existe el elemento
+        if (document.querySelector('.datos-guardados-info')) {
+            return;
+        }
+        
         // Crear elemento de información
         const infoDiv = document.createElement('div');
         infoDiv.className = 'datos-guardados-info';
@@ -251,14 +294,24 @@ function añadirInfoDatosGuardados() {
         
         // Insertar antes del primer h2
         const primerH2 = document.querySelector('h2');
-        primerH2.parentNode.insertBefore(infoDiv, primerH2);
+        if (primerH2) {
+            primerH2.parentNode.insertBefore(infoDiv, primerH2);
+        } else {
+            document.body.insertBefore(infoDiv, document.body.firstChild);
+        }
     }
 }
 
 // Añadir estilos CSS específicos para impresión
 function añadirEstilosImpresion() {
+    // Comprobar si ya existe el estilo
+    if (document.getElementById('estilos-impresion')) {
+        return;
+    }
+    
     // Crear elemento de estilo
     const estiloElement = document.createElement('style');
+    estiloElement.id = 'estilos-impresion';
     estiloElement.type = 'text/css';
     
     // Añadir reglas CSS para ocultar elementos en la impresión
@@ -284,7 +337,7 @@ function añadirEstilosImpresion() {
                 box-shadow: none;
             }
             
-            /* Asegurar que el segundo conjunto de botones también se oculta */
+            /* Asegurar que los botones también se ocultan */
             .botones.no-print {
                 display: none !important;
             }
@@ -297,8 +350,14 @@ function añadirEstilosImpresion() {
 
 // Estilos adicionales para los botones y la interfaz
 function aplicarEstilosAdicionales() {
+    // Comprobar si ya existe el estilo
+    if (document.getElementById('estilos-adicionales')) {
+        return;
+    }
+    
     // Crear hoja de estilos
     const estilos = document.createElement('style');
+    estilos.id = 'estilos-adicionales';
     estilos.textContent = `
         /* Estilo actualizado para los botones */
         .botones button {
@@ -341,27 +400,57 @@ function aplicarEstilosAdicionales() {
     document.head.appendChild(estilos);
 }
 
-// Función principal de inicialización
-function inicializarAutoguardado() {
-    // Cargar datos guardados
-    cargarDatosFormulario();
+// Configurar el autoguardado mientras se escribe
+function configurarAutoguardado() {
+    console.log('Configurando eventos de autoguardado...');
     
-    // Configurar autoguardado
-    configurarAutoguardado();
+    // Guardar al cambiar inputs de texto
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('change', guardarDatosFormulario);
+        input.addEventListener('blur', guardarDatosFormulario);
+    });
     
-    // Añadir indicador de guardado
-    añadirIndicadorGuardado();
+    // Guardar al cambiar radios
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', guardarDatosFormulario);
+        radio.addEventListener('click', guardarDatosFormulario);
+    });
     
-    // Añadir información sobre datos guardados
-    añadirInfoDatosGuardados();
+    // Guardar al cambiar textareas
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.addEventListener('change', guardarDatosFormulario);
+        textarea.addEventListener('blur', guardarDatosFormulario);
+        // También guardar mientras se escribe, pero con un retraso
+        textarea.addEventListener('input', debounce(guardarDatosFormulario, 1000));
+    });
     
-    // Añadir estilos para impresión
-    añadirEstilosImpresion();
+    // Guardar cuando se edita el plan de acción
+    const planAccion = document.getElementById('plan-accion-editor');
+    if (planAccion) {
+        planAccion.addEventListener('input', debounce(guardarDatosFormulario, 1000));
+        planAccion.addEventListener('blur', guardarDatosFormulario);
+    }
     
-    // Aplicar estilos adicionales para hacer la interfaz más compacta
-    aplicarEstilosAdicionales();
+    // Guardar periódicamente para asegurar que nada se pierda
+    setInterval(guardarDatosFormulario, 30000); // Cada 30 segundos
     
-    // Eliminar primer conjunto de botones y mantener solo el último
+    // Guardar antes de cerrar la página
+    window.addEventListener('beforeunload', guardarDatosFormulario);
+    
+    // Modificar la función limpiarFormulario original para que también borre localStorage
+    if (typeof window.limpiarFormulario === 'function') {
+        const limpiarFormularioOriginal = window.limpiarFormulario;
+        window.limpiarFormulario = function() {
+            if (confirm("¿Está seguro que desea limpiar todo el formulario? También se eliminarán los datos guardados.")) {
+                localStorage.clear();
+                limpiarFormularioOriginal();
+            }
+        };
+    }
+}
+
+// Eliminar primer conjunto de botones y mantener solo el último
+function ajustarBotones() {
     const botonesDivs = document.querySelectorAll('.botones');
     if (botonesDivs.length > 1) {
         // Mantener solo el último conjunto de botones (que está al final)
@@ -369,9 +458,57 @@ function inicializarAutoguardado() {
             botonesDivs[i].style.display = 'none';
         }
     }
-    
-    console.log("Sistema de autoguardado inicializado correctamente");
 }
 
-// Inicializar cuando el DOM esté completamente cargado
-document.addEventListener('DOMContentLoaded', inicializarAutoguardado);
+// Función principal de inicialización
+function inicializarAutoguardado() {
+    console.log('Inicializando sistema de autoguardado...');
+    
+    if (!verificarLocalStorage()) {
+        console.error('No se puede inicializar el autoguardado: localStorage no disponible');
+        return;
+    }
+    
+    // Primero añadir los estilos
+    añadirEstilosImpresion();
+    aplicarEstilosAdicionales();
+    
+    // Ajustar los botones existentes
+    ajustarBotones();
+    
+    // Añadir elementos UI
+    añadirIndicadorGuardado();
+    añadirInfoDatosGuardados();
+    
+    // Añadir nuevo botón para limpiar datos
+    añadirBotonLimpiarDatos();
+    
+    // Configurar eventos para autoguardado
+    configurarAutoguardado();
+    
+    // Finalmente cargar datos guardados
+    setTimeout(cargarDatosFormulario, 500); // Pequeño retraso para asegurar que todo esté listo
+    
+    console.log('Sistema de autoguardado inicializado correctamente');
+}
+
+// Asegurarse de que el DOM esté completamente cargado antes de inicializar
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarAutoguardado);
+} else {
+    // Si el DOM ya está cargado, inicializar inmediatamente
+    inicializarAutoguardado();
+}
+
+// Añadir un evento de carga para asegurarnos de que todas las imágenes y recursos estén cargados
+window.addEventListener('load', function() {
+    // Actualizar el conteo después de que todo esté cargado
+    if (typeof contarCumplimiento === 'function') {
+        setTimeout(contarCumplimiento, 1000);
+    }
+});
+
+// Exponer funciones a window para que puedan ser llamadas desde la consola para depuración
+window.guardarDatosManualmente = guardarDatosFormulario;
+window.cargarDatosManualmente = cargarDatosFormulario;
+window.limpiarDatosGuardados = limpiarDatosGuardados;
